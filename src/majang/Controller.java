@@ -1,4 +1,4 @@
-package sample;
+package majang;
 
 public class Controller {
 }
