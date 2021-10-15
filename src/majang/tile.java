@@ -5,7 +5,7 @@ package majang;
  *
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
- * @version 1.0
+ * @version 1.1
  */
 public class tile {
     /**
@@ -44,7 +44,7 @@ public class tile {
             default:
                 throw new IllegalArgumentException("牌の種類が不正です。");
         }
-        if (number < 1 || number > maxNum) {
+        if (number >= 1 && number <= maxNum) {
             this.number = number;
         } else {
             throw new IllegalArgumentException("牌の数字が不正です。");
@@ -93,11 +93,8 @@ public class tile {
             case 's' -> {
                 return 200 + getNumber() * 10 + num;
             }
-            case 'z' -> {
-                return 300 + getNumber() * 10 + num;
-            }
             default -> {
-                throw new Exception("ソートIDを取得時にありえないデータが入り込みました");
+                return 300 + getNumber() * 10 + num;
             }
         }
     }
