@@ -1,7 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
-    <option name="ALTERNATIVE_JRE_PATH" value="12" />
-    <option name="MAIN_CLASS_NAME" value="sample.Main" />
+    <option name="ALTERNATIVE_JRE_PATH" value="17+" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <option name="MAIN_CLASS_NAME" value="title.Main" />
     <module name="majang-yakitori" />
     <extension name="coverage">
       <pattern>
