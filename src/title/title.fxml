@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" hgap="10" maxHeight="1.7976931348623157E308"
+          maxWidth="1.7976931348623157E308"
+          vgap="10" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="title.Controller">
+    <columnConstraints>
+        <ColumnConstraints maxWidth="1.7976931348623157E308"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="115.0" minHeight="115.0" prefHeight="115.0"/>
+        <RowConstraints maxHeight="115.0" minHeight="115.0" prefHeight="115.0"/>
+    </rowConstraints>
+    <children>
+        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@logo.png"/>
+            </image>
+            <GridPane.margin>
+                <Insets top="5.0"/>
+            </GridPane.margin>
+        </ImageView>
+        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                mnemonicParsing="false" prefHeight="51.0" prefWidth="200.0" text="START" GridPane.halignment="CENTER"
+                GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
+    </children>
+</GridPane>
