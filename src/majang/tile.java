@@ -7,7 +7,7 @@ import static majang.tileType.*;
  *
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
- * @version 1.2
+ * @version 1.3
  */
 public class tile {
     /**
@@ -113,6 +113,23 @@ public class tile {
     public String getFullName() {
         return String.valueOf(getNumberOld()) + getCategoryChar();
     }
+
+    /**
+     * 牌が幺九牌かどうかを取得できます。
+     *
+     * @return Boolean型の幺九牌かどうかの情報
+     * @since 1.3
+     */
+    public boolean getYaochu() {
+        if (getCategoryChar() == 'z') {
+            return true;
+        } else if (getNumber() == 1 || getNumber() == 9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * 手牌を並べる際に使用するソートIDを取得します。
