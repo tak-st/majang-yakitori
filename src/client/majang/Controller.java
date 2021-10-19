@@ -1,4 +1,4 @@
-package title;
+package client.majang;
 
 public class Controller {
 }

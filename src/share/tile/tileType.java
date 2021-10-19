@@ -1,4 +1,4 @@
-package majang;
+package share.tile;
 
 /**
  * 牌の種類を定義しています。
@@ -11,5 +11,5 @@ package majang;
  * ZIPAI : 字牌
  */
 public enum tileType {
-    MANZU, PINZU, SOHZU, FONPAI, SANGEN, ZIPAI;
+    MANZU, PINZU, SOHZU, FONPAI, SANGEN, ZIPAI
 }

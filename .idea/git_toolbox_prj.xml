@@ -4,6 +4,7 @@
     <option name="autoFetchEnabledOverride">
       <BoolValueOverride>
         <option name="enabled" value="true" />
+        <option name="value" value="true" />
       </BoolValueOverride>
     </option>
     <option name="autoFetchIntervalMinutesOverride">
@@ -15,6 +16,7 @@
     <option name="autoFetchOnBranchSwitchOverride">
       <BoolValueOverride>
         <option name="enabled" value="true" />
+        <option name="value" value="true" />
       </BoolValueOverride>
     </option>
     <option name="commitDialogBranchCompletionOverride">

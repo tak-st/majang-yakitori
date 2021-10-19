@@ -10,6 +10,7 @@
     <plugin id="com.github.shiraji.yaemoji" />
     <plugin id="com.intellij.ja" />
     <plugin id="com.intellij.javafx" />
+    <plugin id="com.intellij.jira" />
     <plugin id="com.jetbrains.codeWithMe" />
     <plugin id="com.mnw.stickyselection" />
     <plugin id="de.endrullis.idea.postfixtemplates" />
@@ -18,6 +19,7 @@
     <plugin id="krasa.CpuUsageIndicator" />
     <plugin id="net.seesharpsoft.intellij.plugins.csv" />
     <plugin id="org.jetbrains.plugins.javaFX" />
+    <plugin id="org.nemwiz.jira-commit-message" />
     <plugin id="org.nik.presentation-assistant" />
     <plugin id="some.awesome" />
     <plugin id="zielu.gittoolbox" />

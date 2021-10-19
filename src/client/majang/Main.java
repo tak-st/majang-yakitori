@@ -1,4 +1,4 @@
-package title;
+package client.majang;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,15 +8,16 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("title.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("majang.fxml"));
         primaryStage.setTitle("本格ネット麻雀 焼鳥");
-        primaryStage.setScene(new Scene(root, 600, 550));
+        primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
+    }
+
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

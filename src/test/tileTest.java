@@ -1,14 +1,17 @@
-package majang;
+package test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import share.tile.tile;
+import share.tile.tileType;
 
-import static majang.tileType.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static share.tile.tileType.*;
 
 class tileTest {
 
@@ -22,7 +25,7 @@ class tileTest {
     })
     @DisplayName("字牌入力から風牌や三元牌へ変換")
     void getCategory(tileType expected, tileType category, int number, boolean isRed, int expectednum) {
-        assertEquals(expected, new tile(category, number, isRed).getCategory(), "Category");
+        Assertions.assertEquals(expected, new tile(category, number, isRed).getCategory(), "Category");
         assertEquals(expectednum, new tile(category, number, isRed).getNumber(), "Number");
     }
 

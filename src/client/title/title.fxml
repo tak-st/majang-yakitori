@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" hgap="10" maxHeight="1.7976931348623157E308"
           maxWidth="1.7976931348623157E308"
-          vgap="10" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="title.Controller">
+          vgap="10" xmlns="http://javafx.com/javafx/11.0.2" fx:controller="client.title.Controller">
     <columnConstraints>
         <ColumnConstraints maxWidth="1.7976931348623157E308"/>
     </columnConstraints>

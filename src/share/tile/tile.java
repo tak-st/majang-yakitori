@@ -1,6 +1,6 @@
-package majang;
+package share.tile;
 
-import static majang.tileType.*;
+import static share.tile.tileType.*;
 
 /**
  * 牌単体の情報を保持し、取得できるクラスです。

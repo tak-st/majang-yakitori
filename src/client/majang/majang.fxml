@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="center" hgap="10" vgap="10"
-          xmlns="http://javafx.com/javafx/11.0.2" fx:controller="majang.Controller">
+          xmlns="http://javafx.com/javafx/11.0.2" fx:controller="client.majang.Controller">
     <columnConstraints>
         <ColumnConstraints/>
     </columnConstraints>
