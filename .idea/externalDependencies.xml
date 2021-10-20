@@ -19,7 +19,6 @@
     <plugin id="krasa.CpuUsageIndicator" />
     <plugin id="net.seesharpsoft.intellij.plugins.csv" />
     <plugin id="org.jetbrains.plugins.javaFX" />
-    <plugin id="org.nemwiz.jira-commit-message" />
     <plugin id="org.nik.presentation-assistant" />
     <plugin id="some.awesome" />
     <plugin id="zielu.gittoolbox" />

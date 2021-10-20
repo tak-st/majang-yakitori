@@ -3,7 +3,7 @@
   <component name="StickySelectionHighlights">
     <option name="editorHighlights">
       <map>
-        <entry key="$PROJECT_DIR$/.idea/externalDependencies.xml">
+        <entry key="$USER_HOME$/AppData/Local/JetBrains/Toolbox/apps/IDEA-C/ch-0/212.5284.40.vmoptions">
           <value>
             <PaintGroupHighlightMap />
           </value>
@@ -13,57 +13,32 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/majang-yakitori.iml">
+        <entry key="$PROJECT_DIR$/build/docs/javadoc/index-all.html">
           <value>
             <PaintGroupHighlightMap />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/client/majang/Main.java">
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/HelloApplication.java">
           <value>
             <PaintGroupHighlightMap />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/client/majang/majang.fxml">
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/majang/Controller.java">
           <value>
             <PaintGroupHighlightMap />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/client/title/Main.java">
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/title/Main.java">
           <value>
             <PaintGroupHighlightMap />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/resources/title.fxml">
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/title/title.java">
           <value>
             <PaintGroupHighlightMap />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/test/java/tileTest.java">
-          <value>
-            <PaintGroupHighlightMap />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/share/Main.java">
-          <value>
-            <PaintGroupHighlightMap />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/share/tile.java">
-          <value>
-            <PaintGroupHighlightMap />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/share/tile/tile.java">
-          <value>
-            <PaintGroupHighlightMap />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/test/java/tileTest.java">
-          <value>
-            <PaintGroupHighlightMap />
-          </value>
-        </entry>
-        <entry key="$PROJECT_DIR$/src/test/tileTest.java">
+        <entry key="$PROJECT_DIR$/src/main/java/module-info.java">
           <value>
             <PaintGroupHighlightMap />
           </value>
