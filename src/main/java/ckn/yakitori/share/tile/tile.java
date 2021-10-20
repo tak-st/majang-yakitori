@@ -18,11 +18,11 @@ public class tile {
     /**
      * 数字(mps:1~9/z:1~7[東南西北発白中])
      */
-    private int number;
+    private final int number;
     /**
      * 赤ドラかどうか
      */
-    private boolean isRed;
+    private final boolean isRed;
 
     /**
      * カテゴリーがchar型で入力された場合、tiletype型に変換
@@ -37,22 +37,15 @@ public class tile {
     public tile(char category, int number, boolean isRed) {
         int maxNum = 9;
         switch (category) {
-            case 'z':
+            case 'z' -> {
                 // zならmaxは7
                 maxNum = 7;
                 this.category = ZIPAI;
-                break;
-            case 's':
-                this.category = SOHZU;
-                break;
-            case 'p':
-                this.category = PINZU;
-                break;
-            case 'm':
-                this.category = MANZU;
-                break;
-            default:
-                throw new IllegalArgumentException("牌の種類が不正です。");
+            }
+            case 's' -> this.category = SOHZU;
+            case 'p' -> this.category = PINZU;
+            case 'm' -> this.category = MANZU;
+            default -> throw new IllegalArgumentException("牌の種類が不正です。");
         }
         if (number >= 1 && number <= maxNum) {
             if (this.category == ZIPAI) {
@@ -124,11 +117,7 @@ public class tile {
     public boolean getYaochu() {
         if (getCategoryChar() == 'z') {
             return true;
-        } else if (getNumber() == 1 || getNumber() == 9) {
-            return true;
-        } else {
-            return false;
-        }
+        } else return getNumber() == 1 || getNumber() == 9;
     }
 
 
@@ -144,7 +133,7 @@ public class tile {
      * @return int型のソートID
      * @since 1.0
      */
-    public int getSortID() throws Exception {
+    public int getSortID() {
         int num = 1;
         if (isRed()) {
             num = 0;
@@ -184,18 +173,10 @@ public class tile {
     public char getCategoryChar() {
         char $result = 0;
         switch (category) {
-            case MANZU -> {
-                $result = 'm';
-            }
-            case PINZU -> {
-                $result = 'p';
-            }
-            case SOHZU -> {
-                $result = 's';
-            }
-            case ZIPAI, FONPAI, SANGEN -> {
-                $result = 'z';
-            }
+            case MANZU -> $result = 'm';
+            case PINZU -> $result = 'p';
+            case SOHZU -> $result = 's';
+            case FONPAI, SANGEN -> $result = 'z';
 
         }
         return $result;

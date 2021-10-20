@@ -69,10 +69,12 @@ class tileTest {
     @ParameterizedTest
     @CsvSource({
             "true,MANZU,1,false",
+            "true,SOHZU,9,false",
             "true,SANGEN,3,true",
             "true,FONPAI,2,true",
             "false,PINZU,6,false",
-            "false,SOHZU,4,false"
+            "false,SOHZU,4,false",
+            "true,ZIPAI,6,false"
     })
     @DisplayName("getYaochuのテスト")
     void getYaochu(boolean expected, tileType category, int number, boolean isRed) {
