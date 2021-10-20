@@ -9,7 +9,9 @@ package ckn.yakitori.share.tile;
  * FONPAI : 風牌
  * SANGEN : 三元牌
  * ZIPAI : 字牌
+ *
+ * @author Shintani
  */
 public enum tileType {
-    MANZU, PINZU, SOHZU, FONPAI, SANGEN, ZIPAI;
+    MANZU, PINZU, SOHZU, FONPAI, SANGEN, ZIPAI
 }
