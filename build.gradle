@@ -16,15 +16,16 @@ repositories {
 
 ext {
     junitVersion = '5.8.1'
-    ghToken = System.getenv('GH_TOKEN')
 }
 
+jacoco {
+    toolVersion = "0.8.7"
+}
 gitPublish {
     // where to publish to (repo must exist)
-    repoUri = 'git@github.com:tak-st/majang-yakitori.git'
+    repoUri = 'https://github.com/tak-st/majang-yakitori.git'
     // branch will be created if it doesn't exist
     branch = 'gh-pages'
-
     // generally, you don't need to touch this
     repoDir = file("$buildDir/gitPublish")
 
