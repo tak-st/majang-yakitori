@@ -1,5 +1,5 @@
-import ckn.yakitori.share.tile.tile;
-import ckn.yakitori.share.tile.tileType;
+package ckn.yakitori.share.tile;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -49,7 +49,7 @@ class tileTest {
 
     })
     @DisplayName("FullName表示のテスト：風牌と三元牌")
-    void getFullNamett(String expected, tileType category, int number, boolean isRed) {
+    void getFullNameTileType(String expected, tileType category, int number, boolean isRed) {
         assertEquals(expected, new tile(category, number, isRed).getFullName());
     }
 
@@ -84,7 +84,7 @@ class tileTest {
     class misstile {
         @Test
         @DisplayName("牌の種類が'a'")
-        void misstilea() {
+        void missTileA() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile('a', 8, false), "8a");
@@ -94,7 +94,7 @@ class tileTest {
 
         @Test
         @DisplayName("牌の数字が'10'")
-        void misstile10() {
+        void missTile10() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile('s', 10, false), "10s");
@@ -104,7 +104,7 @@ class tileTest {
 
         @Test
         @DisplayName("牌の数字が'0'")
-        void misstile0() {
+        void missTile0() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile('z', 0, false), "0z");
@@ -114,7 +114,7 @@ class tileTest {
 
         @Test
         @DisplayName("牌の数字が'-3'")
-        void misstileminus3() {
+        void missTileMinus3() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile('m', -3, false), "-3m");
@@ -124,7 +124,7 @@ class tileTest {
 
         @Test
         @DisplayName("字牌なのに牌の数字が'8'")
-        void misstilez8() {
+        void missTileZ8() {
             Throwable exception4 = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile('z', 8, false), "8z");
@@ -139,7 +139,7 @@ class tileTest {
     class misstileType {
         @Test
         @DisplayName("牌の数字が'10'")
-        void misstile10() {
+        void missTile10() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile(SOHZU, 10, false), "10s");
@@ -149,7 +149,7 @@ class tileTest {
 
         @Test
         @DisplayName("牌の数字が'0'")
-        void misstile0() {
+        void missTile0() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile(ZIPAI, 0, false), "0z");
@@ -159,7 +159,7 @@ class tileTest {
 
         @Test
         @DisplayName("牌の数字が'-3'")
-        void misstileminus3() {
+        void missTileMinus3() {
             Throwable exception = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile(PINZU, -3, false), "-3m");
@@ -169,7 +169,7 @@ class tileTest {
 
         @Test
         @DisplayName("字牌なのに牌の数字が'8'")
-        void misstilez8() {
+        void missTileZ8() {
             Throwable exception4 = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile(ZIPAI, 8, false), "8z");
@@ -179,7 +179,7 @@ class tileTest {
 
         @Test
         @DisplayName("風牌なのに牌の数字が'5'")
-        void misstilek5() {
+        void missTileK5() {
             Throwable exception4 = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile(FONPAI, 5, true), "5k");
@@ -189,7 +189,7 @@ class tileTest {
 
         @Test
         @DisplayName("三元牌なのに牌の数字が'4'")
-        void misstileg4() {
+        void missTileG4() {
             Throwable exception4 = assertThrows(
                     IllegalArgumentException.class,
                     () -> new tile(SANGEN, 4, false), "4g");
