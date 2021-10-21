@@ -44,11 +44,11 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
+
+      - run: gradle printVersion
       # run tests!
       - run: gradle test
       - store_test_results:
-          path: test-results
+          path: build/test-results
       # upload coverages to codecov
       - run: bash <(curl -s https://codecov.io/bash)
-      # run publish!
-      - run: gradle gitPublishPush
