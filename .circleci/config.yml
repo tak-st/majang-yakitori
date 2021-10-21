@@ -50,5 +50,12 @@ jobs:
       - run: gradle test
       - store_test_results:
           path: build/test-results
+      - store_artifacts:
+          path: build/jacoco/test/html
+          destination: test_reports
       # upload coverages to codecov
       - run: bash <(curl -s https://codecov.io/bash)
+      - run: gradle javadoc
+      - store_artifacts:
+          path: build/docs/javadoc
+          destination: javadoc
