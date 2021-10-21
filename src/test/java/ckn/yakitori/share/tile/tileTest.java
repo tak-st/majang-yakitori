@@ -62,7 +62,7 @@ class tileTest {
 
     })
     @DisplayName("getSortIDのテスト")
-    void getSortID(int expected, char category, int number, boolean isRed) throws Exception {
+    void getSortID(int expected, char category, int number, boolean isRed){
         assertEquals(expected, new tile(category, number, isRed).getSortID());
     }
 
@@ -199,6 +199,13 @@ class tileTest {
             assertEquals("牌の数字が不正です。", exception4.getMessage());
         }
 
+    }
+
+    @Test
+    @DisplayName("toString()を使用した際、文字列で中身を示す")
+    void toStringTest() {
+        assertEquals("tile{5mr}", new tile(MANZU,5,true).toString());
+        assertEquals("tile{6z}", new tile(SANGEN,2,false).toString());
     }
 
 
