@@ -56,7 +56,7 @@ class tileTest {
     @ParameterizedTest
     @CsvSource({
             "11,m,1,false",
-            "170,p,7,true",
+            "150,p,5,true",
             "291,s,9,false",
             "371,z,7,false"
 
