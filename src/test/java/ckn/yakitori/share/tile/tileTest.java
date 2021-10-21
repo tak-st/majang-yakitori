@@ -1,5 +1,5 @@
-import ckn.yakitori.share.tile.tile;
-import ckn.yakitori.share.tile.tileType;
+package ckn.yakitori.share.tile;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -3,6 +3,11 @@
   <component name="StickySelectionHighlights">
     <option name="editorHighlights">
       <map>
+        <entry key="/Dummy.txt">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$USER_HOME$/AppData/Local/JetBrains/Toolbox/apps/IDEA-C/ch-0/212.5284.40.vmoptions">
           <value>
             <PaintGroupHighlightMap />
@@ -43,12 +48,32 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/share/tile/tile.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/share/tile/tileType.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/module-info.java">
           <value>
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/ckn/yakitori/share/tile/tileTest.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/test/java/tileTest.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/travis.yml">
           <value>
             <PaintGroupHighlightMap />
           </value>
