@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/majang-yakitori.iml" filepath="$PROJECT_DIR$/majang-yakitori.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yakitori.iml" filepath="$PROJECT_DIR$/yakitori.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/yakitori.main.iml" filepath="$PROJECT_DIR$/.idea/modules/yakitori.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/yakitori.test.iml" filepath="$PROJECT_DIR$/.idea/modules/yakitori.test.iml" />
     </modules>
   </component>
 </project>
