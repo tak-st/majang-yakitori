@@ -2,6 +2,8 @@
 # See: https://circleci.com/docs/2.0/language-java/
 version: 2
 
+orbs:
+  codecov: codecov/codecov@1.0.5
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -10,7 +12,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       # specify the version you desire here
-      - image: circleci/openjdk:8-jdk
+      - image: circleci/openjdk:17-jdk
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -44,3 +46,7 @@ jobs:
 
       # run tests!
       - run: gradle test
+      # upload coverages to codecov 
+      - run: bash <(curl -s https://codecov.io/bash)
+      # run publish!
+      - run: gradle gitPublishPush
