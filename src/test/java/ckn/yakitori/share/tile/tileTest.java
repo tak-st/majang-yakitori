@@ -21,9 +21,9 @@ class tileTest {
 
     })
     @DisplayName("字牌入力から風牌や三元牌へ変換")
-     void getCategory(tileType expected, tileType category, int number, boolean isRed, int expectednum) {
+    void getCategory(tileType expected, tileType category, int number, boolean isRed, int expectedNum) {
         assertEquals(expected, new tile(category, number, isRed).getCategory(), "Category");
-        assertEquals(expectednum, new tile(category, number, isRed).getNumber(), "Number");
+        assertEquals(expectedNum, new tile(category, number, isRed).getNumber(), "Number");
     }
 
     @ParameterizedTest
@@ -56,23 +56,25 @@ class tileTest {
     @ParameterizedTest
     @CsvSource({
             "11,m,1,false",
-            "170,p,7,true",
+            "150,p,5,true",
             "291,s,9,false",
             "371,z,7,false"
 
     })
     @DisplayName("getSortIDのテスト")
-    void getSortID(int expected, char category, int number, boolean isRed) throws Exception {
+    void getSortID(int expected, char category, int number, boolean isRed) {
         assertEquals(expected, new tile(category, number, isRed).getSortID());
     }
 
     @ParameterizedTest
     @CsvSource({
             "true,MANZU,1,false",
+            "true,SOHZU,9,false",
             "true,SANGEN,3,true",
             "true,FONPAI,2,true",
             "false,PINZU,6,false",
-            "false,SOHZU,4,false"
+            "false,SOHZU,4,false",
+            "true,ZIPAI,6,false"
     })
     @DisplayName("getYaochuのテスト")
     void getYaochu(boolean expected, tileType category, int number, boolean isRed) {
@@ -81,7 +83,7 @@ class tileTest {
 
     @Nested
     @DisplayName("不正牌チェックのテスト")
-    class misstile {
+    class missTile {
         @Test
         @DisplayName("牌の種類が'a'")
         void missTileA() {
@@ -136,7 +138,7 @@ class tileTest {
 
     @Nested
     @DisplayName("tileType型を使用した初期化での不正牌チェックのテスト")
-    class misstileType {
+    class missTileType {
         @Test
         @DisplayName("牌の数字が'10'")
         void missTile10() {
@@ -197,6 +199,13 @@ class tileTest {
             assertEquals("牌の数字が不正です。", exception4.getMessage());
         }
 
+    }
+
+    @Test
+    @DisplayName("toString()を使用した際、文字列で中身を示す")
+    void toStringTest() {
+        assertEquals("tile{5mr}", new tile(MANZU,5,true).toString());
+        assertEquals("tile{6z}", new tile(SANGEN,2,false).toString());
     }
 
 

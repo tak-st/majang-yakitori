@@ -8,7 +8,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
  * @author Shintani
- * @version 1.3
+ * @version 1.4
  */
 public class tile {
     /**
@@ -18,41 +18,34 @@ public class tile {
     /**
      * 数字(mps:1~9/z:1~7[東南西北発白中])
      */
-    private int number;
+    private final int number;
     /**
      * 赤ドラかどうか
      */
-    private boolean isRed;
+    private final boolean isRed;
 
     /**
-     * カテゴリーがchar型で入力された場合、tiletype型に変換
+     * カテゴリーがchar型で入力された場合、tileType型に変換
      * 入力値のチェックを行う
      *
      * @param category 種類 (m:萬子/p:筒子/s:索子/z:字牌)
      * @param number   数字(mps:1~9/z:1~7[東南西北発白中])
      * @param isRed    赤ドラかどうか
-     * @throws IllegalArgumentException 種類が"mpsz"以外であるか、数字が0以下か10以上、zなら8以上の場合
+     * @throws IllegalArgumentException 種類が"m/p/s/z"以外であるか、数字が0以下か10以上、zなら8以上の場合
      * @since 1.0
      */
     public tile(char category, int number, boolean isRed) {
         int maxNum = 9;
         switch (category) {
-            case 'z':
+            case 'z' -> {
                 // zならmaxは7
                 maxNum = 7;
                 this.category = ZIPAI;
-                break;
-            case 's':
-                this.category = SOHZU;
-                break;
-            case 'p':
-                this.category = PINZU;
-                break;
-            case 'm':
-                this.category = MANZU;
-                break;
-            default:
-                throw new IllegalArgumentException("牌の種類が不正です。");
+            }
+            case 's' -> this.category = SOHZU;
+            case 'p' -> this.category = PINZU;
+            case 'm' -> this.category = MANZU;
+            default -> throw new IllegalArgumentException("牌の種類が不正です。");
         }
         if (number >= 1 && number <= maxNum) {
             if (this.category == ZIPAI) {
@@ -77,17 +70,18 @@ public class tile {
      * @param category 種類 (MANZU:萬子/PINZU:筒子/SOHZU:索子/ZIPAI:字牌/FONPAI:風牌/SANGEN:三元牌)
      * @param number   (萬子筒子索子:1~9/字牌:1~7[東南西北発白中]/風牌:1~4[東南西北]/三元牌:1~3[白発中])
      * @param isRed    赤ドラかどうか
-     * @throws IllegalArgumentException 数字が各種類に適した範囲以外の場合
+     * @throws IllegalArgumentException 種類・数字が各種類に適した範囲以外の場合
      * @since 1.2
      */
     public tile(tileType category, int number, boolean isRed) {
         this.category = category;
-        int maxNum = 0;
+        int maxNum;
         switch (category) {
             case MANZU, PINZU, SOHZU -> maxNum = 9;
             case ZIPAI -> maxNum = 7;
             case FONPAI -> maxNum = 4;
             case SANGEN -> maxNum = 3;
+            default -> throw new IllegalArgumentException("予期しない牌の種類です。");
         }
         if (number >= 1 && number <= maxNum) {
             if (this.category == ZIPAI) {
@@ -124,11 +118,7 @@ public class tile {
     public boolean getYaochu() {
         if (getCategoryChar() == 'z') {
             return true;
-        } else if (getNumber() == 1 || getNumber() == 9) {
-            return true;
-        } else {
-            return false;
-        }
+        } else return getNumber() == 1 || getNumber() == 9;
     }
 
 
@@ -144,7 +134,7 @@ public class tile {
      * @return int型のソートID
      * @since 1.0
      */
-    public int getSortID() throws Exception {
+    public int getSortID() {
         int num = 1;
         if (isRed()) {
             num = 0;
@@ -182,21 +172,12 @@ public class tile {
      * @since 1.0
      */
     public char getCategoryChar() {
-        char $result = 0;
+        char $result;
         switch (category) {
-            case MANZU -> {
-                $result = 'm';
-            }
-            case PINZU -> {
-                $result = 'p';
-            }
-            case SOHZU -> {
-                $result = 's';
-            }
-            case ZIPAI, FONPAI, SANGEN -> {
-                $result = 'z';
-            }
-
+            case MANZU -> $result = 'm';
+            case PINZU -> $result = 'p';
+            case SOHZU -> $result = 's';
+            default -> $result = 'z';
         }
         return $result;
     }
@@ -235,4 +216,16 @@ public class tile {
     }
 
 
+    /**
+     * toStringを使用した際に牌情報を返します。
+     *
+     * @return 2p,5srなどの牌情報を示す文字列
+     * @since 1.4
+     */
+    @Override
+    public String toString() {
+        return "tile{" +
+                getFullName() + (isRed ? "r" : "") +
+                '}';
+    }
 }
