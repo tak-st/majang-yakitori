@@ -1,4 +1,4 @@
-package ckn.yakitori.client.title;
+package ckn.yakitori.client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +7,20 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class title extends Application {
+/**
+ * クライアント用の画面を表示するためのクラスです。
+ *
+ * @author Shintani
+ * @version 1.0
+ */
+public class client extends Application {
 
-    public static void main(String[] args) {
-        launch();
-    }
-
+    /**
+     * クライアント用の画面を表示します。
+     *
+     * @param stage stage型の引数
+     * @throws IOException resourcesフォルダにファイルが見つからなかった場合の例外
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("title.fxml"));

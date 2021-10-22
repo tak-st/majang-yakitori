@@ -58,6 +58,21 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/client.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/controller/majangController.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/controller/titleController.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/client/majang/Controller.java">
           <value>
             <PaintGroupHighlightMap />
@@ -73,6 +88,11 @@
             <PaintGroupHighlightMap />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/main.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/ckn/yakitori/share/tile/tile.java">
           <value>
             <PaintGroupHighlightMap />
@@ -84,6 +104,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/main/java/module-info.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/majang.fxml">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/main/resources/title.fxml">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/ckn/yakitori/client/clientTest.java">
+          <value>
+            <PaintGroupHighlightMap />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/java/ckn/yakitori/mainTest.java">
           <value>
             <PaintGroupHighlightMap />
           </value>

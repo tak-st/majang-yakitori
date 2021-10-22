@@ -1,3 +1,6 @@
+/**
+ * 必要なモジュールを記述しています。
+ */
 module ckn.yakitori {
     requires javafx.controls;
     requires javafx.fxml;
@@ -7,8 +10,8 @@ module ckn.yakitori {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens ckn.yakitori.client.majang to javafx.graphics,javafx.fxml;
-    opens ckn.yakitori.client.title to javafx.graphics,javafx.fxml;
+    opens ckn.yakitori.client.controller to javafx.graphics, javafx.fxml;
+    opens ckn.yakitori.client to javafx.graphics, javafx.fxml;
     opens ckn.yakitori to javafx.fxml;
     exports ckn.yakitori;
 }
