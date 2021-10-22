@@ -25,13 +25,13 @@ public class tile {
     private final boolean isRed;
 
     /**
-     * カテゴリーがchar型で入力された場合、tiletype型に変換
+     * カテゴリーがchar型で入力された場合、tileType型に変換
      * 入力値のチェックを行う
      *
      * @param category 種類 (m:萬子/p:筒子/s:索子/z:字牌)
      * @param number   数字(mps:1~9/z:1~7[東南西北発白中])
      * @param isRed    赤ドラかどうか
-     * @throws IllegalArgumentException 種類が"mpsz"以外であるか、数字が0以下か10以上、zなら8以上の場合
+     * @throws IllegalArgumentException 種類が"m/p/s/z"以外であるか、数字が0以下か10以上、zなら8以上の場合
      * @since 1.0
      */
     public tile(char category, int number, boolean isRed) {
@@ -75,12 +75,13 @@ public class tile {
      */
     public tile(tileType category, int number, boolean isRed) {
         this.category = category;
-        int maxNum = 0;
+        int maxNum;
         switch (category) {
             case MANZU, PINZU, SOHZU -> maxNum = 9;
             case ZIPAI -> maxNum = 7;
             case FONPAI -> maxNum = 4;
             case SANGEN -> maxNum = 3;
+            default -> throw new IllegalStateException("牌の数字が不正です。");
         }
         if (number >= 1 && number <= maxNum) {
             if (this.category == ZIPAI) {
@@ -171,12 +172,13 @@ public class tile {
      * @since 1.0
      */
     public char getCategoryChar() {
-        char $result = 0;
+        char $result;
         switch (category) {
             case MANZU -> $result = 'm';
             case PINZU -> $result = 'p';
             case SOHZU -> $result = 's';
             case FONPAI, SANGEN -> $result = 'z';
+            default -> throw new IllegalStateException("予期しない牌の種類です。");
 
         }
         return $result;

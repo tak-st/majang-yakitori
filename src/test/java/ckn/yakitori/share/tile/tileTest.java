@@ -21,9 +21,9 @@ class tileTest {
 
     })
     @DisplayName("字牌入力から風牌や三元牌へ変換")
-     void getCategory(tileType expected, tileType category, int number, boolean isRed, int expectednum) {
+    void getCategory(tileType expected, tileType category, int number, boolean isRed, int expectedNum) {
         assertEquals(expected, new tile(category, number, isRed).getCategory(), "Category");
-        assertEquals(expectednum, new tile(category, number, isRed).getNumber(), "Number");
+        assertEquals(expectedNum, new tile(category, number, isRed).getNumber(), "Number");
     }
 
     @ParameterizedTest
@@ -62,7 +62,7 @@ class tileTest {
 
     })
     @DisplayName("getSortIDのテスト")
-    void getSortID(int expected, char category, int number, boolean isRed) throws Exception {
+    void getSortID(int expected, char category, int number, boolean isRed) {
         assertEquals(expected, new tile(category, number, isRed).getSortID());
     }
 
@@ -83,7 +83,7 @@ class tileTest {
 
     @Nested
     @DisplayName("不正牌チェックのテスト")
-    class misstile {
+    class missTile {
         @Test
         @DisplayName("牌の種類が'a'")
         void missTileA() {
@@ -138,7 +138,7 @@ class tileTest {
 
     @Nested
     @DisplayName("tileType型を使用した初期化での不正牌チェックのテスト")
-    class misstileType {
+    class missTileType {
         @Test
         @DisplayName("牌の数字が'10'")
         void missTile10() {
