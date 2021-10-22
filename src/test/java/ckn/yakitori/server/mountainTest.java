@@ -1,6 +1,5 @@
 package ckn.yakitori.server;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -8,9 +7,9 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.HashMap;
 import java.util.Map;
 
-import static ckn.yakitori.server.mountaintype.*;
+import static ckn.yakitori.server.mountainType.SANMA;
+import static ckn.yakitori.server.mountainType.YONMA;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 class mountainTest {
 

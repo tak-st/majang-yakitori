@@ -6,8 +6,8 @@ import ckn.yakitori.share.tile.tileType;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static ckn.yakitori.server.mountainType.SANMA;
 import static ckn.yakitori.share.tile.tileType.*;
-import static ckn.yakitori.server.mountaintype.*;
 
 /**
  * 山牌を作成し、情報を保持するクラスです。
@@ -36,19 +36,18 @@ public class mountain {
     /**
      * 渡されたtypeに従い山を生成するコンストラクタです。
      *
-     *
      * @param type 山の種類を指定する引数
      * @throws IllegalArgumentException 実装されていないtypeが渡されたときの例外
-     *
      */
-    public mountain(mountaintype type) {
+    public mountain(mountainType type) {
         tileType tileCategory;
-        switch(type){
-            case YONMA,SANMA -> {}
+        switch (type) {
+            case YONMA, SANMA -> {
+            }
             default -> throw new IllegalArgumentException("実装されていないタイプです。");
         }
         // a = 1萬子、2索子、3筒子、4字牌
-        for(int a = 1; a <= 4; a++) {
+        for (int a = 1; a <= 4; a++) {
             switch (a) {
 
                 case 1 -> tileCategory = MANZU;

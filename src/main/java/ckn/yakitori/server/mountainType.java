@@ -3,7 +3,7 @@ package ckn.yakitori.server;
 /**
  * 山を作るときの種類を定義しています。
  */
-public enum mountaintype {
+public enum mountainType {
     /**
      * 四麻
      */
