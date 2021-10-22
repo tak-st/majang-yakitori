@@ -70,7 +70,7 @@ public class tile {
      * @param category 種類 (MANZU:萬子/PINZU:筒子/SOHZU:索子/ZIPAI:字牌/FONPAI:風牌/SANGEN:三元牌)
      * @param number   (萬子筒子索子:1~9/字牌:1~7[東南西北発白中]/風牌:1~4[東南西北]/三元牌:1~3[白発中])
      * @param isRed    赤ドラかどうか
-     * @throws IllegalArgumentException 数字が各種類に適した範囲以外の場合
+     * @throws IllegalArgumentException 種類・数字が各種類に適した範囲以外の場合
      * @since 1.2
      */
     public tile(tileType category, int number, boolean isRed) {
@@ -81,7 +81,7 @@ public class tile {
             case ZIPAI -> maxNum = 7;
             case FONPAI -> maxNum = 4;
             case SANGEN -> maxNum = 3;
-            default -> throw new IllegalStateException("牌の数字が不正です。");
+            default -> throw new IllegalArgumentException("予期しない牌の種類です。");
         }
         if (number >= 1 && number <= maxNum) {
             if (this.category == ZIPAI) {
@@ -177,9 +177,7 @@ public class tile {
             case MANZU -> $result = 'm';
             case PINZU -> $result = 'p';
             case SOHZU -> $result = 's';
-            case FONPAI, SANGEN -> $result = 'z';
-            default -> throw new IllegalStateException("予期しない牌の種類です。");
-
+            default -> $result = 'z';
         }
         return $result;
     }
