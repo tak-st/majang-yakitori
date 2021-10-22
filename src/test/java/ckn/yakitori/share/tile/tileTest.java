@@ -201,5 +201,12 @@ class tileTest {
 
     }
 
+    @Test
+    @DisplayName("toString()を使用した際、文字列で中身を示す")
+    void toStringTest() {
+        assertEquals("tile{5mr}", new tile(MANZU,5,true).toString());
+        assertEquals("tile{6z}", new tile(SANGEN,2,false).toString());
+    }
+
 
 }
