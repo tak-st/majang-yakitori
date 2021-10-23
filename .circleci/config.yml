@@ -1,13 +1,14 @@
 # Java Gradle CircleCI 2.0 configuration file
 # See: https://circleci.com/docs/2.0/language-java/
-version: 2
+version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.5
+  jira: circleci/jira@1.3.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build:
+  build_test:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -60,3 +61,15 @@ jobs:
       - store_artifacts:
           path: build/docs/javadoc
           destination: javadoc
+  jira:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - jira/notify:
+          job_type: deployment 
+workflows:
+  build_test_coverage_javadoc_jira :
+    jobs:
+      - build_test
+      - jira
