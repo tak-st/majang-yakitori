@@ -5,11 +5,19 @@ package ckn.yakitori.server;
  */
 public enum mountainType {
     /**
-     * 四麻
+     * 四麻用の山を生成
      */
     YONMA,
     /**
-     * 三麻
+     * 三麻用の山を生成
+     *
+     * <p>
+     * 2m~8mを除外
+     * </p>
      */
-    SANMA
+    SANMA,
+    /**
+     * 規則的な山を生成
+     */
+    SEQUENCE
 }

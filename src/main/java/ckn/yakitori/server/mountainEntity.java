@@ -1,5 +1,6 @@
 package ckn.yakitori.server;
 
+import ckn.yakitori.share.mountain;
 import ckn.yakitori.share.tile.tile;
 import ckn.yakitori.share.tile.tileType;
 
@@ -7,18 +8,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static ckn.yakitori.server.mountainType.SANMA;
+import static ckn.yakitori.server.mountainType.SEQUENCE;
 import static ckn.yakitori.share.tile.tileType.*;
 
 /**
  * 山牌を作成し、情報を保持するクラスです。
  *
- * <p></p>
- *
  * @author mizu
  * @author keita
  * @version 1.1
  */
-public class mountain {
+public class mountainEntity implements mountain {
     /**
      * 山牌
      */
@@ -39,10 +39,10 @@ public class mountain {
      * @param type 山の種類を指定する引数
      * @throws IllegalArgumentException 実装されていないtypeが渡されたときの例外
      */
-    public mountain(mountainType type) {
+    public mountainEntity(mountainType type) {
         tileType tileCategory;
         switch (type) {
-            case YONMA, SANMA -> {
+            case YONMA, SANMA, SEQUENCE -> {
             }
             default -> throw new IllegalArgumentException("実装されていないタイプです。");
         }
@@ -95,7 +95,9 @@ public class mountain {
         //System.out.println(tileList);
 
         //山牌をシャッフル
-        Collections.shuffle(tileList);
+        if (type != SEQUENCE) {
+            Collections.shuffle(tileList);
+        }
 
         //ランダムにした山牌を表示
         //System.out.println(tileList);
