@@ -50,7 +50,7 @@ class tileTest {
     })
     @DisplayName("FullName表示のテスト：風牌と三元牌")
     void getFullNameTileType(String expected, tileType category, int number, boolean isRed) {
-        assertEquals(expected, new tile(category, number, isRed).getFullName());
+        assertEquals(expected, new tile(category, number, isRed).getFullName(false));
     }
 
     @ParameterizedTest

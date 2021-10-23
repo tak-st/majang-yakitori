@@ -8,7 +8,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
  * @author Shintani
- * @version 1.4
+ * @version 1.5
  */
 public class tile {
     /**
@@ -107,6 +107,22 @@ public class tile {
      */
     public String getFullName() {
         return String.valueOf(getNumberOld()) + getCategoryChar();
+    }
+
+    /**
+     * 1m,4p,7sという形で牌を表す文字列を取得できます。
+     *
+     * @param redInfo trueを指定すると赤ドラの場合に最後にrが付与されます
+     * @return String型の牌種を表す文字列
+     * @since 1.5
+     */
+    public String getFullName(boolean redInfo) {
+
+        if (redInfo) {
+            return getFullName() + (isRed ? "r" : "");
+        } else {
+            return getFullName();
+        }
     }
 
     /**
@@ -225,7 +241,7 @@ public class tile {
     @Override
     public String toString() {
         return "tile{" +
-                getFullName() + (isRed ? "r" : "") +
+                getFullName(true) +
                 '}';
     }
 }
