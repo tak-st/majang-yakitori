@@ -11,12 +11,12 @@ import ckn.yakitori.share.tile.tile;
 public abstract class mentsu {
 
     /**
-     * 識別するための牌
+     * 識別するための牌です。
      */
     protected tile identifierTile;
 
     /**
-     * 明か暗か。つまり鳴いているかどうか。
+     * 明か暗か、つまり鳴いているかどうか。
      */
     protected boolean isOpen;
 
@@ -26,7 +26,7 @@ public abstract class mentsu {
     protected boolean isCheckPass;
 
     /**
-     * 面子の中に赤ドラが何枚あるか
+     * 面子の中に赤ドラが何枚あるか。
      */
     protected int redQuantity;
 
