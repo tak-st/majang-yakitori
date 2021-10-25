@@ -4,6 +4,12 @@ import ckn.yakitori.share.tile.tile;
 
 import java.util.Objects;
 
+/**
+ * 刻子を扱うクラスです。
+ *
+ * @author Shintani
+ * @version 1.0
+ */
 public class kotsu extends mentsu {
 
 
