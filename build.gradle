@@ -86,6 +86,7 @@ dependencies {
         exclude(group: 'org.openjfx')
     }
     implementation('net.synedra:validatorfx:0.1.13') { exclude(group: 'org.openjfx') }
+    implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
