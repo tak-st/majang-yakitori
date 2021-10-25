@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static ckn.yakitori.server.mountainType.YONMA;
+import static ckn.yakitori.server.mountainType.SEQUENCE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -49,10 +49,13 @@ class handTest {
 
     @Test
     void testToString() {
-        mountain Mountain = new mountainEntity(YONMA);
+        mountain Mountain = new mountainEntity(SEQUENCE);
+        for (int i = 0; i <= 30; i++) {
+            Mountain.pickTile();
+        }
         hand Hand = new hand(Mountain);
         Hand.doPickTile(Mountain);
         Hand.sortTile();
-        System.out.println(Hand);
+        assertEquals("hand{8m9m9m9m9m1s1s1s1s2s2s2s2s / 3s}", Hand.toString());
     }
 }
