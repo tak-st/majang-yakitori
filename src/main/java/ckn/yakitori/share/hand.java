@@ -1,6 +1,5 @@
 package ckn.yakitori.share;
 
-import ckn.yakitori.server.mountain;
 import ckn.yakitori.share.tile.tile;
 
 import java.util.ArrayList;

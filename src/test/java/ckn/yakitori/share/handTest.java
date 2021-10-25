@@ -1,6 +1,6 @@
 package ckn.yakitori.share;
 
-import ckn.yakitori.server.mountain;
+import ckn.yakitori.server.mountainEntity;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -49,7 +49,7 @@ class handTest {
 
     @Test
     void testToString() {
-        mountain Mountain = new mountain(YONMA);
+        mountain Mountain = new mountainEntity(YONMA);
         hand Hand = new hand(Mountain);
         Hand.doPickTile(Mountain);
         Hand.sortTile();
