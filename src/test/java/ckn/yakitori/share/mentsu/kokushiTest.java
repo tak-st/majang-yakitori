@@ -18,12 +18,15 @@ class kokushiTest {
             "false,0,1m9m1s9s1p9p1z2z3z4z6z6z7z7z",
             "false,0,1m9m1s9s1p9p1z2z4z4z6z6z7z7z",
             "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z1m",
+            "false,0,1m9m1s5s1p9p1z2z3z4z5z6z7z1m",
+            "false,0,1m9m1s9s1p9p1z2z3z4z5z6z7z5m",
+            "true,0,1m9m1s9s1p9p9p1z2z3z4z5z6z7z",
             "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z9p",
             "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z9s",
             "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z4z",
             "false,0,1m9m1s9s1p9p1z2z3z4z5z6z7z5m",
             "false,0,1m9m1s9s1p9p1z2z3z4z5z6z4m5m",
-            "false,0,1m9m1s9s1p9p1z2z3z4z5z6z6z7z",
+            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z6z7z",
             "true,14,1mr9mr1sr9sr1pr9pr123456zr7zr7zr",
     })
     @DisplayName("国士無双が正しくチェックできるかのテスト")

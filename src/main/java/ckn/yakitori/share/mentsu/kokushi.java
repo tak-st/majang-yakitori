@@ -102,7 +102,7 @@ public class kokushi extends mentsu {
                 } else {
                     x2flag = true;
                 }
-            } else if (kokushiData[c][n] == 9) {
+            } else {
                 return false;
             }
         }
@@ -117,10 +117,10 @@ public class kokushi extends mentsu {
             default -> c = 4;
         }
         if (kokushiData[c][n] == 1) {
-            return false;
+            return x2flag;
         } else if (kokushiData[c][n] == 0) {
             return !x2flag;
-        } else return kokushiData[c][n] != 9;
+        } else return false;
 
     }
 
