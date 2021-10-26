@@ -8,7 +8,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
  * @author Shintani
- * @version 1.5
+ * @version 1.6
  */
 public class tile {
     /**
@@ -18,15 +18,15 @@ public class tile {
     /**
      * 数字(mps:1~9/z:1~7[東南西北発白中])
      */
-    private final int number;
+    private int number;
     /**
      * 赤ドラかどうか
      */
-    private final boolean isRed;
+    private boolean isRed;
 
     /**
-     * カテゴリーがchar型で入力された場合、tileType型に変換
-     * 入力値のチェックを行う
+     * カテゴリーがchar型で入力された場合のコンストラクタ。
+     * tileType型に変換、入力値のチェックを行う
      *
      * @param category 種類 (m:萬子/p:筒子/s:索子/z:字牌)
      * @param number   数字(mps:1~9/z:1~7[東南西北発白中])
@@ -35,6 +35,84 @@ public class tile {
      * @since 1.0
      */
     public tile(char category, int number, boolean isRed) {
+        setParameterChar(category, number, isRed);
+    }
+
+    /**
+     * カテゴリーがtileType型で入力された場合のコンストラクタ。
+     * 入力値のチェックを行う
+     *
+     * @param category 種類 (MANZU:萬子/PINZU:筒子/SOHZU:索子/ZIPAI:字牌/FONPAI:風牌/SANGEN:三元牌)
+     * @param number   (萬子筒子索子:1~9/字牌:1~7[東南西北発白中]/風牌:1~4[東南西北]/三元牌:1~3[白発中])
+     * @param isRed    赤ドラかどうか
+     * @throws IllegalArgumentException 種類・数字が各種類に適した範囲以外の場合
+     * @since 1.2
+     */
+    public tile(tileType category, int number, boolean isRed) {
+        setParameter(category, number, isRed);
+    }
+
+    public tile(String string) {
+        int number = 0;
+        char category = 'n';
+        boolean isred = false;
+        for (int i = 0; i < string.length(); i++) {
+            switch (string.charAt(i)) {
+                case '1', '2', '3', '4', '5', '6', '7', '8', '9' -> {
+                    if (number == 0) {
+                        number = ((int) (string.charAt(i))) - 48;
+                    } else {
+                        throw new IllegalArgumentException("数字が2つ以上存在します。");
+                    }
+                }
+                case 's', 'p', 'm', 'z' -> {
+                    if (category == 'n') {
+                        category = string.charAt(i);
+                    } else {
+                        throw new IllegalArgumentException("種類を示す文字が2つ以上存在します。");
+                    }
+                }
+                case 'r' -> isred = true;
+                default -> throw new IllegalArgumentException(i + "文字目に、認識できない文字が含まれています。：" + string.charAt(i));
+            }
+        }
+        if (number == 0 || category == 'n') {
+            throw new IllegalArgumentException("牌を設定するための情報が不足しています。");
+        }
+        setParameterChar(category, number, isred);
+    }
+
+    private void setParameter(tileType category, int number, boolean isRed) {
+        this.category = category;
+        int maxNum;
+        switch (category) {
+            case MANZU, PINZU, SOHZU -> maxNum = 9;
+            case ZIPAI -> maxNum = 7;
+            case FONPAI -> maxNum = 4;
+            case SANGEN -> maxNum = 3;
+            default -> throw new IllegalArgumentException("予期しない牌の種類です。");
+        }
+        setNumber(number, maxNum);
+        this.isRed = isRed;
+    }
+
+    private void setNumber(int number, int maxNum) {
+        if (number >= 1 && number <= maxNum) {
+            if (this.category == ZIPAI) {
+                if (number <= 4) {
+                    this.category = FONPAI;
+                } else {
+                    this.category = SANGEN;
+                    number = number - 4;
+                }
+            }
+            this.number = number;
+        } else {
+            throw new IllegalArgumentException("牌の数字が不正です。");
+        }
+    }
+
+    private void setParameterChar(char category, int number, boolean isRed) {
         int maxNum = 9;
         switch (category) {
             case 'z' -> {
@@ -47,55 +125,7 @@ public class tile {
             case 'm' -> this.category = MANZU;
             default -> throw new IllegalArgumentException("牌の種類が不正です。");
         }
-        if (number >= 1 && number <= maxNum) {
-            if (this.category == ZIPAI) {
-                if (number <= 4) {
-                    this.category = FONPAI;
-                } else {
-                    this.category = SANGEN;
-                    number = number - 4;
-                }
-            }
-            this.number = number;
-        } else {
-            throw new IllegalArgumentException("牌の数字が不正です。");
-        }
-        this.isRed = isRed;
-    }
-
-    /**
-     * カテゴリーがtileType型で入力された場合
-     * 入力値のチェックを行う
-     *
-     * @param category 種類 (MANZU:萬子/PINZU:筒子/SOHZU:索子/ZIPAI:字牌/FONPAI:風牌/SANGEN:三元牌)
-     * @param number   (萬子筒子索子:1~9/字牌:1~7[東南西北発白中]/風牌:1~4[東南西北]/三元牌:1~3[白発中])
-     * @param isRed    赤ドラかどうか
-     * @throws IllegalArgumentException 種類・数字が各種類に適した範囲以外の場合
-     * @since 1.2
-     */
-    public tile(tileType category, int number, boolean isRed) {
-        this.category = category;
-        int maxNum;
-        switch (category) {
-            case MANZU, PINZU, SOHZU -> maxNum = 9;
-            case ZIPAI -> maxNum = 7;
-            case FONPAI -> maxNum = 4;
-            case SANGEN -> maxNum = 3;
-            default -> throw new IllegalArgumentException("予期しない牌の種類です。");
-        }
-        if (number >= 1 && number <= maxNum) {
-            if (this.category == ZIPAI) {
-                if (number <= 4) {
-                    this.category = FONPAI;
-                } else {
-                    this.category = SANGEN;
-                    number = number - 4;
-                }
-            }
-            this.number = number;
-        } else {
-            throw new IllegalArgumentException("牌の数字が不正です。");
-        }
+        setNumber(number, maxNum);
         this.isRed = isRed;
     }
 
