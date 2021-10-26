@@ -204,8 +204,44 @@ class tileTest {
     @Test
     @DisplayName("toString()を使用した際、文字列で中身を示す")
     void toStringTest() {
-        assertEquals("tile{5mr}", new tile(MANZU,5,true).toString());
-        assertEquals("tile{6z}", new tile(SANGEN,2,false).toString());
+        assertEquals("tile{5mr}", new tile(MANZU, 5, true).toString());
+        assertEquals("tile{6z}", new tile(SANGEN, 2, false).toString());
+    }
+
+    @Nested
+    class StringTest {
+
+        @ParameterizedTest
+        @CsvSource({
+                "3m,3m",
+                "4mr,4mr",
+                "6m,m6",
+                "9mr,mr9",
+                "2sr,rs2",
+                "5sr,r5s",
+                "8pr,rrr8rrrprrrr",
+                "5z,z5",
+        })
+        void StringCTest(String expected, String string) {
+            assertEquals(expected, new tile(string).getFullName(true));
+        }
+
+        @ParameterizedTest
+        @CsvSource({
+                "数字が2つ以上存在します。,13m",
+                "種類を示す文字が2つ以上存在します。,1mp",
+                "1文字目に、認識できない文字が含まれています。：a,am1",
+                "牌を設定するための情報が不足しています。,3",
+                "牌を設定するための情報が不足しています。,z",
+                "牌の数字が不正です。,9z",
+        })
+        void StringErrorTest(String expected, String string) {
+            Throwable exception = assertThrows(
+                    IllegalArgumentException.class,
+                    () -> new tile(string));
+
+            assertEquals(expected, exception.getMessage());
+        }
     }
 
 
