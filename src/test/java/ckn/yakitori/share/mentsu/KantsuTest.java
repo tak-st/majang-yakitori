@@ -35,7 +35,7 @@ class kantsuTest {
             "true,1,PINZU,5,false,PINZU,5,true,PINZU,5,false,PINZU,5,false",
             "true,4,PINZU,1,true,PINZU,1,true,PINZU,1,true,PINZU,1,true"
     })
-    @DisplayName("刻子が正しくチェックできるかのテスト")
+    @DisplayName("槓子が正しくチェックできるかのテスト")
     void check(boolean expected, int expectedred, tileType tileType1, int num1, boolean red1, tileType tileType2, int num2, boolean red2, tileType tileType3, int num3, boolean red3, tileType tileType4, int num4, boolean red4) {
         mentsu Mentsu = new kantsu(false, new tile(tileType1, num1, red1), new tile(tileType2, num2, red2), new tile(tileType3, num3, red3), new tile(tileType4, num4, red4));
         assertEquals(expected, Mentsu.isCheckPass(), "チェック結果がおかしい");
