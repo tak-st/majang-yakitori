@@ -12,7 +12,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  */
 public class tile {
     /**
-     * 種類 (m:萬子/p:筒子/s:索子/z:字牌)
+     * 種類
      */
     private tileType category;
     /**
@@ -52,6 +52,13 @@ public class tile {
         setParameter(category, number, isRed);
     }
 
+    /**
+     * 文字列が渡された場合のコンストラクタ。
+     *
+     * @param string 牌を示す文字列
+     * @throws IllegalArgumentException 牌を示す情報が不正な時の例外
+     * @since 1.6
+     */
     public tile(String string) {
         int number = 0;
         char category = 'n';
@@ -73,7 +80,7 @@ public class tile {
                     }
                 }
                 case 'r' -> isred = true;
-                default -> throw new IllegalArgumentException(i + "文字目に、認識できない文字が含まれています。：" + string.charAt(i));
+                default -> throw new IllegalArgumentException(i + 1 + "文字目に、認識できない文字が含まれています。：" + string.charAt(i));
             }
         }
         if (number == 0 || category == 'n') {
@@ -82,6 +89,17 @@ public class tile {
         setParameterChar(category, number, isred);
     }
 
+    /**
+     * パラメータをセットするメソッド。
+     * <p>
+     * コンストラクタによって呼び出される。
+     *
+     * @param category 種類 (MANZU:萬子/PINZU:筒子/SOHZU:索子/ZIPAI:字牌/FONPAI:風牌/SANGEN:三元牌)
+     * @param number   (萬子筒子索子:1~9/字牌:1~7[東南西北発白中]/風牌:1~4[東南西北]/三元牌:1~3[白発中])
+     * @param isRed    赤ドラかどうか
+     * @throws IllegalArgumentException 種類・数字が各種類に適した範囲以外の場合
+     * @since 1.6
+     */
     private void setParameter(tileType category, int number, boolean isRed) {
         this.category = category;
         int maxNum;
@@ -112,6 +130,17 @@ public class tile {
         }
     }
 
+    /**
+     * 種類をChar型で、パラメータをセットするメソッド。
+     * <p>
+     * コンスラクタによって呼び出される。
+     *
+     * @param category 種類 (m:萬子/p:筒子/s:索子/z:字牌)
+     * @param number   数字(mps:1~9/z:1~7[東南西北発白中])
+     * @param isRed    赤ドラかどうか
+     * @throws IllegalArgumentException 種類が"m/p/s/z"以外であるか、数字が0以下か10以上、zなら8以上の場合
+     * @since 1.6
+     */
     private void setParameterChar(char category, int number, boolean isRed) {
         int maxNum = 9;
         switch (category) {
