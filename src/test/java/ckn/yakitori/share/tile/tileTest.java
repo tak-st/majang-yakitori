@@ -219,7 +219,7 @@ class tileTest {
                 "9mr,mr9",
                 "2sr,rs2",
                 "5sr,r5s",
-                "8p,8p",
+                "8pr,rrr8rrrprrrr",
                 "5z,z5",
         })
         void StringCTest(String expected, String string) {
