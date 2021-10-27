@@ -6,6 +6,9 @@ import ckn.yakitori.share.tile.tile;
 
 /**
  * 王牌の情報を保持するクラスです。
+ *
+ * @author Toyoda7
+ * @version 1.0
  */
 public class deadTile {
 
@@ -20,7 +23,7 @@ public class deadTile {
     /**
      * 裏ドラ
      */
-    tile[] hiddendora = new tile[5];
+    tile[] hiddenDora = new tile[5];
 
 
     /**
@@ -34,28 +37,30 @@ public class deadTile {
     /**
      * 裏ドラ牌カウント
      */
-    int hiddendora_count = 0;
+    int hiddenDora_count = 0;
 
 
     /**
      * 山牌から王牌を取り出すコンストラクタです。
      *
      * @param Mountain 山牌を指定する引数
+     * @since 1.0
      */
     public deadTile(mountain Mountain) {
         for (int i = 0; i <= 3; i++) {
             rinsyan[i] = Mountain.pickTile();
             dora[i] = Mountain.pickTile();
-            hiddendora[i] = Mountain.pickTile();
+            hiddenDora[i] = Mountain.pickTile();
         }
         dora[4] = Mountain.pickTile();
-        hiddendora[4] = Mountain.pickTile();
+        hiddenDora[4] = Mountain.pickTile();
     }
 
     /**
      * 嶺上牌を返すメソッドです。
      *
      * @return 嶺上牌を返すtile型
+     * @since 1.0
      */
     public tile getRinsyan() {
         return rinsyan[rinsyan_count++];
@@ -65,6 +70,7 @@ public class deadTile {
      * ドラ牌を返すメソッドです。
      *
      * @return ドラ牌を返すtile型
+     * @since 1.0
      */
     public tile getDora() {
         return dora[dora_count++];
@@ -74,8 +80,9 @@ public class deadTile {
      * 裏ドラ牌を返すメソッドです。
      *
      * @return 裏ドラ牌を返すtile型
+     * @since 1.0
      */
     public tile getHiddenDora() {
-        return hiddendora[hiddendora_count++];
+        return hiddenDora[hiddenDora_count++];
     }
 }
