@@ -74,6 +74,11 @@ public class hand {
         if (j == 13) {
             try {
                 boolean isRed = false;
+                if (string.length() - i >= 2) {
+                    if (string.charAt(i) == 'r') {
+                        i++;
+                    }
+                }
                 if (string.length() - i >= 3) {
                     isRed = string.charAt(i + 2) == 'r';
                 }

@@ -19,7 +19,8 @@ class handTest {
             "hand{1mr2mr3mr4mr5mr6mr7mr8mr9mr1s2s3s4s / 4s},123456789mr1234s4s",
             "hand{1s2s3s4p5pr6p7m8m9m1z2z3z4z / 5z},123s4p5pr6p789m123z4z5z6z7z",
             "hand{5m6m6m6m7m7m7m8m8m8m9m9m9m / 5mr},5666777888999m5mr",
-
+            "hand{1mr9mr1sr9sr1pr9pr1zr2zr3zr4zr5zr6zr7zr / 7zr},1mr9mr1sr9sr1pr9pr1zr2zr3zr4zr5zr6zr7zr7zr",
+            "hand{1mr9mr1sr9sr1pr9pr1zr2zr3zr4zr5zr6zr7zr / 7z},1mr9mr1sr9sr1pr9pr1zr2zr3zr4zr5zr6zr7zr7z",
 
     })
     @DisplayName("文字列を使用して初期化するテスト")
