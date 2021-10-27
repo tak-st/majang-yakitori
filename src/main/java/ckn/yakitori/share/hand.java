@@ -10,7 +10,7 @@ import java.util.Comparator;
  * 手牌の情報を保持し、操作を行うクラスです。
  *
  * <p>
- * TODO:鳴けるようにする
+ * TODO:鳴けるようにする <br>
  * TODO:牌を入れ替えて、捨てられるようにする
  * </p>
  *
