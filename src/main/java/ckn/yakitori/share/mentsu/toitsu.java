@@ -91,4 +91,14 @@ public class toitsu extends mentsu {
     public int getFu() {
         return 0;
     }
+
+
+    @Override
+    public String toString() {
+        return "対{" +
+                identifierTile.getFullName() + "*2" +
+                (redQuantity != 0 ? " r" + redQuantity : "") +
+                (isOpen ? " <op>" : "") +
+                '}';
+    }
 }

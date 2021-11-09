@@ -180,4 +180,13 @@ public class shuntsu extends mentsu {
     public int getFu() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "順{" +
+                tile1.getFullName() + identifierTile.getFullName() + tile3.getFullName() +
+                (redQuantity != 0 ? " r" + redQuantity : "") +
+                (isOpen ? " <op>" : "") +
+                '}';
+    }
 }
