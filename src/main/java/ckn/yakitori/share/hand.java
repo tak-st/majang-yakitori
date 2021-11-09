@@ -170,4 +170,15 @@ public class hand {
         return pickTile;
     }
 
+    public tile[] getAll() {
+        tile[] All = new tile[14];
+        int i = 0;
+        for (tile Tile : getContents()) {
+            All[i] = Tile;
+            i++;
+        }
+        All[i] = pickTile;
+        return All;
+    }
+
 }
