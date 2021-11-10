@@ -8,7 +8,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
  * @author Shintani
- * @version 1.6
+ * @version 1.7
  */
 public class tile {
     /**
@@ -23,6 +23,10 @@ public class tile {
      * 赤ドラかどうか
      */
     private boolean isRed;
+    /**
+     * この牌が上がり牌がどうか
+     */
+    private boolean isWinTile;
 
     /**
      * カテゴリーがchar型で入力された場合のコンストラクタ。
@@ -294,13 +298,33 @@ public class tile {
     /**
      * toStringを使用した際に牌情報を返します。
      *
-     * @return 2p,5srなどの牌情報を示す文字列
+     * @return 2p, 5srなどの牌情報を示す文字列
      * @since 1.4
      */
     @Override
     public String toString() {
         return "tile{" +
-                getFullName(true) +
+                getFullName(true) + (isWinTile() ? "_" : "") +
                 '}';
+    }
+
+    /**
+     * 上がり牌がどうかを返します。
+     *
+     * @return 上がり牌かどうか
+     * @since 1.7
+     */
+    public boolean isWinTile() {
+        return isWinTile;
+    }
+
+    /**
+     * 上がり牌というフラグをセットします。
+     *
+     * @param winTile 上がり牌であるかどうか
+     * @since 1.7
+     */
+    public void setWinTile(boolean winTile) {
+        isWinTile = winTile;
     }
 }
