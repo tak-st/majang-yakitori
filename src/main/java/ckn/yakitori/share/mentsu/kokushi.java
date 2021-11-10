@@ -69,10 +69,10 @@ public class kokushi extends mentsu {
     }
 
     /**
-     * 対子として成立しているかどうかチェックするメソッドです。
+     * 国士無双として成立しているかどうかチェックするメソッドです。
      *
      * @param Hand チェックする手牌
-     * @return 対子として成立しているかどうか (Boolean)
+     * @return 国士無双として成立しているかどうか (Boolean)
      */
     private boolean check(hand Hand) {
         boolean x2flag = false;
@@ -149,6 +149,7 @@ public class kokushi extends mentsu {
         return result;
     }
 
+
     @Override
     public int getFu() {
         return 0;
@@ -160,5 +161,14 @@ public class kokushi extends mentsu {
         } else {
             this.identifierTile = identifierTile;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "国士{" +
+                identifierTile.getFullName() + "*2+12牌" +
+                (redQuantity != 0 ? " r" + redQuantity : "") +
+                (isOpen ? " <op>" : "") +
+                '}';
     }
 }
