@@ -264,12 +264,31 @@ class mentsuPartitionTest {
             "1155567778889m9m",
             "1122334455889m9m",
             "1122334445556m6m",
-            "19m19s19p1234567z1m"
+            "19m19s19p1234567z1m",
+            "1112345678999m3m",
+            "1112335678999m4m",
+            "1112223334445m5m",
+            "1112334456689m7m",
+            "3334445556677m7m",
+            "1245566677899m3m",
     })
     void ChinituTest(String Hand) {
         mentsuPartition M = new mentsuPartition(new hand(Hand), false);
-        System.out.println(M.getLog());
+        //System.out.println(M.getLog());
+
+        for (int i = 0; i <= M.getMentsuList().size() - 1; i++) {
+            System.out.println("\u001b[00;32m" + (i + 1) + "組目\u001b[00m");
+            System.out.println(M.getMentsuList(i));
+            System.out.println("\u001b[00;32m順子\u001b[00m");
+            System.out.println(M.getShuntsuList(i));
+            System.out.println("\u001b[00;32m刻子\u001b[00m");
+            System.out.println(M.getKotsuList(i));
+            System.out.println("\u001b[00;32m対子\u001b[00m");
+            System.out.println(M.getToitsuList(i));
+            System.out.println("\u001b[00;32m待ち\u001b[00m");
+            System.out.println(M.getWaitTypeList(i));
+            System.out.println();
+        }
         assertTrue(M.isCanWin());
     }
-
 }
