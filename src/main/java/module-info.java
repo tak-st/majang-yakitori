@@ -9,6 +9,7 @@ module ckn.yakitori {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires org.jetbrains.annotations;
 
     opens ckn.yakitori.client.controller to javafx.graphics, javafx.fxml;
     opens ckn.yakitori.client to javafx.graphics, javafx.fxml;

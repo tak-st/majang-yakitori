@@ -49,6 +49,7 @@ class handTest {
     }
 
     @Test
+    @DisplayName("toStringのテスト")
     void testToString() {
         mountain Mountain = new mountainEntity(SEQUENCE);
         for (int i = 0; i <= 30; i++) {

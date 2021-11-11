@@ -144,8 +144,8 @@ public class cyuren extends mentsu {
     }
 
     private void setIdentifierTile(tile identifierTile) {
-        if (identifierTile.getCategoryChar() == 'z') {
-            throw new IllegalArgumentException("字牌は識別牌になりません。");
+        if (identifierTile.getYaochu()) {
+            throw new IllegalArgumentException("１、９、字牌は識別牌になりません。");
         } else {
             this.identifierTile = identifierTile;
         }
