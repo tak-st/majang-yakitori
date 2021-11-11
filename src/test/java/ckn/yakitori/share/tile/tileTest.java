@@ -7,8 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static ckn.yakitori.share.tile.tileType.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class tileTest {
 
@@ -58,7 +57,8 @@ class tileTest {
             "11,m,1,false",
             "150,p,5,true",
             "291,s,9,false",
-            "371,z,7,false"
+            "371,z,7,false",
+            "999,e,0,false"
 
     })
     @DisplayName("getSortIDのテスト")
@@ -79,6 +79,17 @@ class tileTest {
     @DisplayName("getYaochuのテスト")
     void getYaochu(boolean expected, tileType category, int number, boolean isRed) {
         assertEquals(expected, new tile(category, number, isRed).getYaochu());
+    }
+
+    @Test
+    @DisplayName("上がり牌であるかのフラグを付けられるかテスト")
+    void winTileTest() {
+        tile T = new tile("5m");
+        assertFalse(T.isWinTile());
+        T.setWinTile(true);
+        assertTrue(T.isWinTile());
+        T.setWinTile(false);
+        assertFalse(T.isWinTile());
     }
 
     @Nested
@@ -221,6 +232,7 @@ class tileTest {
                 "5sr,r5s",
                 "8pr,rrr8rrrprrrr",
                 "5z,z5",
+                "'',e",
         })
         void StringCTest(String expected, String string) {
             assertEquals(expected, new tile(string).getFullName(true));

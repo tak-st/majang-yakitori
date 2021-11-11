@@ -46,6 +46,12 @@ public enum WaitType {
      */
     private final int fu;
 
+    /**
+     * 日本語名と符数をgetするために必要なコンストラクタです。
+     *
+     * @param text 定数ごとに決められた日本語名
+     * @param fu   定数ごとに決められた符数
+     */
     WaitType(final String text, final int fu) {
         this.text = text;
         this.fu = fu;

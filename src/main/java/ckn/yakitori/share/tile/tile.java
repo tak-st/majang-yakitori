@@ -8,7 +8,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
  * @author Shintani
- * @version 1.7
+ * @version 1.8
  */
 public class tile {
     /**
@@ -16,7 +16,7 @@ public class tile {
      */
     private tileType category;
     /**
-     * 数字(mps:1~9/z:1~7[東南西北発白中])
+     * 数字(mps:1~9/z:1~7[東南西北発白中]/e:0)
      */
     private int number;
     /**
@@ -64,33 +64,36 @@ public class tile {
      * @since 1.6
      */
     public tile(String string) {
-        int number = 0;
+        int number = -1;
         char category = 'n';
-        boolean isred = false;
+        boolean isRed = false;
         for (int i = 0; i < string.length(); i++) {
             switch (string.charAt(i)) {
                 case '1', '2', '3', '4', '5', '6', '7', '8', '9' -> {
-                    if (number == 0) {
+                    if (number == -1) {
                         number = ((int) (string.charAt(i))) - 48;
                     } else {
                         throw new IllegalArgumentException("数字が2つ以上存在します。");
                     }
                 }
-                case 's', 'p', 'm', 'z' -> {
+                case 's', 'p', 'm', 'z', 'e' -> {
                     if (category == 'n') {
                         category = string.charAt(i);
+                        if (category == 'e') {
+                            number = 0;
+                        }
                     } else {
                         throw new IllegalArgumentException("種類を示す文字が2つ以上存在します。");
                     }
                 }
-                case 'r' -> isred = true;
+                case 'r' -> isRed = true;
                 default -> throw new IllegalArgumentException(i + 1 + "文字目に、認識できない文字が含まれています。：" + string.charAt(i));
             }
         }
-        if (number == 0 || category == 'n') {
+        if (number == -1 || category == 'n') {
             throw new IllegalArgumentException("牌を設定するための情報が不足しています。");
         }
-        setParameterChar(category, number, isred);
+        setParameterChar(category, number, isRed);
     }
 
     /**
@@ -106,21 +109,19 @@ public class tile {
      */
     private void setParameter(tileType category, int number, boolean isRed) {
         this.category = category;
-        int maxNum;
-        switch (category) {
-            case MANZU, PINZU, SOHZU -> maxNum = 9;
-            case ZIPAI -> maxNum = 7;
-            case FONPAI -> maxNum = 4;
-            case SANGEN -> maxNum = 3;
-            default -> throw new IllegalArgumentException("予期しない牌の種類です。");
+        setNumber(number, category.getMaxNum());
+        if (category != EMPTY) {
+            this.isRed = isRed;
         }
-        setNumber(number, maxNum);
-        this.isRed = isRed;
     }
 
     private void setNumber(int number, int maxNum) {
+        if (getCategory() == EMPTY) {
+            this.number = 0;
+            return;
+        }
         if (number >= 1 && number <= maxNum) {
-            if (this.category == ZIPAI) {
+            if (getCategory() == ZIPAI) {
                 if (number <= 4) {
                     this.category = FONPAI;
                 } else {
@@ -146,19 +147,18 @@ public class tile {
      * @since 1.6
      */
     private void setParameterChar(char category, int number, boolean isRed) {
-        int maxNum = 9;
         switch (category) {
-            case 'z' -> {
-                // zならmaxは7
-                maxNum = 7;
-                this.category = ZIPAI;
-            }
+            case 'z' -> this.category = ZIPAI;
             case 's' -> this.category = SOHZU;
             case 'p' -> this.category = PINZU;
             case 'm' -> this.category = MANZU;
+            case 'e' -> {
+                this.category = EMPTY;
+                isRed = false;
+            }
             default -> throw new IllegalArgumentException("牌の種類が不正です。");
         }
-        setNumber(number, maxNum);
+        setNumber(number, getCategory().getMaxNum());
         this.isRed = isRed;
     }
 
@@ -169,6 +169,9 @@ public class tile {
      * @since 1.0
      */
     public String getFullName() {
+        if (getCategory() == EMPTY) {
+            return "";
+        }
         return String.valueOf(getNumberOld()) + getCategoryChar();
     }
 
@@ -228,8 +231,11 @@ public class tile {
             case 's' -> {
                 return 200 + getNumberOld() * 10 + num;
             }
-            default -> {
+            case 'z' -> {
                 return 300 + getNumberOld() * 10 + num;
+            }
+            default -> {
+                return 999;
             }
         }
     }
@@ -256,6 +262,7 @@ public class tile {
             case MANZU -> $result = 'm';
             case PINZU -> $result = 'p';
             case SOHZU -> $result = 's';
+            case EMPTY -> $result = 'e';
             default -> $result = 'z';
         }
         return $result;
