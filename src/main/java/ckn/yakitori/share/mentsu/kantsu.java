@@ -4,6 +4,8 @@ import ckn.yakitori.share.tile.tile;
 
 import java.util.Objects;
 
+import static ckn.yakitori.share.mentsu.kantsuType.*;
+
 /**
  * 槓子を扱うクラスです。
  *
@@ -12,6 +14,8 @@ import java.util.Objects;
  */
 public class kantsu extends mentsu {
 
+
+    private kantsuType KantsuType;
 
     /**
      * 槓子であることが確定している場合のコンストラクタです。
@@ -37,6 +41,11 @@ public class kantsu extends mentsu {
         this.redQuantity = redQuantity;
         this.identifierTile = identifierTile;
         this.isOpen = isOpen;
+        if (!isOpen) {
+            KantsuType = DARK;
+        } else {
+            KantsuType = LIGHT;
+        }
         this.isCheckPass = true;
     }
 
@@ -50,6 +59,35 @@ public class kantsu extends mentsu {
      * @param tile4  4枚目の牌
      */
     public kantsu(boolean isOpen, tile tile1, tile tile2, tile tile3, tile tile4) {
+        if (!isOpen) {
+            KantsuType = DARK;
+        } else {
+            KantsuType = LIGHT;
+        }
+        kantsuCountAndCheck(isOpen, tile1, tile2, tile3, tile4);
+    }
+
+    /**
+     * 加カン用のコンストラクタです。
+     *
+     * @param Kotsu 加カンをする刻子
+     * @param Tile  加カンをするための牌
+     */
+    public kantsu(kotsu Kotsu, tile Tile) {
+        KantsuType = ADD;
+        kantsuCountAndCheck(Kotsu.isOpen, Kotsu.getTileFull()[0], Kotsu.getTileFull()[1], Kotsu.getTileFull()[2], Tile);
+    }
+
+    /**
+     * 槓子かどうかのチェックと赤牌の数のチェックを行います。
+     *
+     * @param isOpen trueなら明槓子
+     * @param tile1  1枚目の牌
+     * @param tile2  2枚目の牌
+     * @param tile3  3枚目の牌
+     * @param tile4  4枚目の牌
+     */
+    private void kantsuCountAndCheck(boolean isOpen, tile tile1, tile tile2, tile tile3, tile tile4) {
         this.isOpen = isOpen;
         int red = 0;
         if (tile1.isRed()) {
@@ -94,6 +132,10 @@ public class kantsu extends mentsu {
         return new tile[]{tile1, tile2, tile3, tile4};
     }
 
+    public kantsuType getKantsuType() {
+        return KantsuType;
+    }
+
     @Override
     public int getFu() {
         int Fu = 8;
@@ -104,5 +146,13 @@ public class kantsu extends mentsu {
             Fu *= 2;
         }
         return Fu;
+    }
+
+    @Override
+    public String toString() {
+        return "槓{" + identifierTile.getFullName() + "*4" +
+                (redQuantity != 0 ? " r" + redQuantity : "") +
+                (isOpen ? " <" + getKantsuType() + ">" : "") +
+                '}';
     }
 }
