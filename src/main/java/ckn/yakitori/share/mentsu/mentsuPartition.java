@@ -2,6 +2,7 @@ package ckn.yakitori.share.mentsu;
 
 import ckn.yakitori.share.hand;
 import ckn.yakitori.share.tile.tile;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,15 +115,17 @@ public class mentsuPartition {
      * @param Hand 分割したい手牌
      * @since 1.0
      */
-    private void DoPartition(hand Hand) {
+    private void DoPartition(@NotNull hand Hand) {
 
         Hand.sortTile();
+        //上がり牌に上がりフラグを付与
         Hand.getPickTile().setWinTile(true);
         logBuf.append(Hand).append("の 面子解析").append(NEWLINE_CODE);
-        //国士
+        //国士無双の判定(1)
         rollbackStock(Hand);
         mentsu Kokushi = new kokushi(Hand);
         if (Kokushi.isCheckPass()) {
+            //国士無双の待ちの判定
             if (Objects.equals(Kokushi.getIdentifierTile().getFullName(), Hand.getPickTile().getFullName())) {
                 waitType = JYUSAN;
             } else {
@@ -134,10 +137,11 @@ public class mentsuPartition {
             canWin = true;
             return;
         }
-        //九蓮宝燈
+        //九蓮宝燈の判定(2)
         rollbackStock(Hand);
         mentsu Cyuren = new cyuren(Hand);
         if (Cyuren.isCheckPass()) {
+            //九蓮宝燈の待ちの判定
             if (Objects.equals(Cyuren.getIdentifierTile().getFullName(), Hand.getPickTile().getFullName())) {
                 waitType = KYUMEN;
             } else {
@@ -151,51 +155,57 @@ public class mentsuPartition {
         }
 
         rollbackStock(Hand);
-        List<mentsu> T = findAllToitsu();
-        logBuf.append("雀頭候補数 : ").append(T.size()).append(NEWLINE_CODE);
-        if (T.size() == 7) {
+        //全ての対子になりうる牌を取得(3)
+        List<mentsu> ToitsuCandidate = findAllToitsu();
+        logBuf.append("雀頭候補数 : ").append(ToitsuCandidate.size()).append(NEWLINE_CODE);
+        //七対子かの判定(4)
+        if (ToitsuCandidate.size() == 7) {
             logBuf.append("\u001b[00;32m七対子です。\u001b[00m").append(NEWLINE_CODE);
             waitType = TANKI;
-            stockMentsu(T);
+            stockMentsu(ToitsuCandidate);
             canWin = true;
             return;
         }
-        for (mentsu toi : T) {
+        //各対子に対して探す(5,9)
+        for (mentsu Toitsu : ToitsuCandidate) {
             rollbackStock(Hand);
-            removeToitsu((toitsu) toi);
-            List<mentsu> S = findShuntsu();
-            List<mentsu> K = findKotsu();
+            removeToitsu((toitsu) Toitsu);
+            // 左から順子 → 刻子(6)
+            List<mentsu> ShuntsuListKari = findShuntsu();
+            List<mentsu> KotsuListKari = findKotsu();
 
             if (endCheck()) {
-                logBuf.append("\u001b[00;32m").append(toi.getIdentifierTile().getFullName()).append("(順子優先) : ○ : ").append(S).append(K).append("\u001b[00m").append(NEWLINE_CODE);
+                logBuf.append("\u001b[00;32m").append(Toitsu.getIdentifierTile().getFullName()).append("(順子優先) : ○ : ").append(ShuntsuListKari).append(KotsuListKari).append("\u001b[00m").append(NEWLINE_CODE);
                 canWin = true;
-                stockMentsu(K, S, new ArrayList<>(List.of(toi)));
+                stockMentsu(KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
             } else {
-                logBuf.append("\u001b[00;31m").append(toi.getIdentifierTile().getFullName()).append("(順子優先) : × : ").append(S).append(K).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
+                logBuf.append("\u001b[00;31m").append(Toitsu.getIdentifierTile().getFullName()).append("(順子優先) : × : ").append(ShuntsuListKari).append(KotsuListKari).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
             }
             rollbackStock(Hand);
-            removeToitsu((toitsu) toi);
-            K = findKotsu();
-            S = findShuntsu();
+            removeToitsu((toitsu) Toitsu);
+            // 刻子 → 左から順子(7)
+            KotsuListKari = findKotsu();
+            ShuntsuListKari = findShuntsu();
             if (endCheck()) {
-                logBuf.append("\u001b[00;32m").append(toi.getIdentifierTile().getFullName()).append("(刻子優先) : ○ : ").append(S).append(K).append("\u001b[00m").append(NEWLINE_CODE);
+                logBuf.append("\u001b[00;32m").append(Toitsu.getIdentifierTile().getFullName()).append("(刻子優先) : ○ : ").append(ShuntsuListKari).append(KotsuListKari).append("\u001b[00m").append(NEWLINE_CODE);
                 canWin = true;
-                stockMentsu(K, S, new ArrayList<>(List.of(toi)));
+                stockMentsu(KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
             } else {
-                logBuf.append("\u001b[00;31m").append(toi.getIdentifierTile().getFullName()).append("(刻子優先) : × : ").append(S).append(K).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
+                logBuf.append("\u001b[00;31m").append(Toitsu.getIdentifierTile().getFullName()).append("(刻子優先) : × : ").append(ShuntsuListKari).append(KotsuListKari).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
 
             }
             rollbackStock(Hand);
-            removeToitsu((toitsu) toi);
-            S = findShuntsuR();
-            K = findKotsu();
+            removeToitsu((toitsu) Toitsu);
+            // 右から順子 → 刻子(8)
+            ShuntsuListKari = findShuntsuR();
+            KotsuListKari = findKotsu();
 
             if (endCheck()) {
-                logBuf.append("\u001b[00;32m").append(toi.getIdentifierTile().getFullName()).append("(逆順優先) : ○ : ").append(S).append(K).append("\u001b[00m").append(NEWLINE_CODE);
+                logBuf.append("\u001b[00;32m").append(Toitsu.getIdentifierTile().getFullName()).append("(逆順優先) : ○ : ").append(ShuntsuListKari).append(KotsuListKari).append("\u001b[00m").append(NEWLINE_CODE);
                 canWin = true;
-                stockMentsu(K, S, new ArrayList<>(List.of(toi)));
+                stockMentsu(KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
             } else {
-                logBuf.append("\u001b[00;31m").append(toi.getIdentifierTile().getFullName()).append("(逆順優先) : × : ").append(S).append(K).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
+                logBuf.append("\u001b[00;31m").append(Toitsu.getIdentifierTile().getFullName()).append("(逆順優先) : × : ").append(ShuntsuListKari).append(KotsuListKari).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
             }
         }
     }
@@ -206,15 +216,16 @@ public class mentsuPartition {
      * @return 対子となりうる牌（mentsu型(実体はtoitsu)のList）
      * @since 1.0
      */
-    private List<mentsu> findAllToitsu() {
+    private @NotNull List<mentsu> findAllToitsu() {
         List<mentsu> find = new ArrayList<>();
-        ArrayList<String> maeToitsu = new ArrayList<>();
+        ArrayList<String> beforeToitsu = new ArrayList<>();
         for (int i = 0; i < stockTiles.size(); i++) {
             for (int j = i + 1; j < stockTiles.size(); j++) {
                 mentsu Toitsu = new toitsu(stockTiles.get(i), stockTiles.get(j));
-                if (Toitsu.isCheckPass() && !maeToitsu.contains(Toitsu.getTile().getFullName())) {
+                if (Toitsu.isCheckPass() && !beforeToitsu.contains(Toitsu.getTile().getFullName())) {
                     find.add(Toitsu);
-                    maeToitsu.add(Toitsu.getTile().getFullName());
+                    beforeToitsu.add(Toitsu.getTile().getFullName());
+                    //見つけたらstockTilesから除外する
                     stockTiles.remove(i);
                     stockTiles.remove(j - 1);
                     i = -1;
@@ -233,7 +244,7 @@ public class mentsuPartition {
      * @param Hand stockHandにコピーする手牌
      * @since 1.0
      */
-    private void rollbackStock(hand Hand) {
+    private void rollbackStock(@NotNull hand Hand) {
         stockTiles = new ArrayList<>(Arrays.asList(Hand.getAll()));
         waitType = null;
     }
@@ -251,11 +262,11 @@ public class mentsuPartition {
             if (T.isCheckPass()) {
                 if (find <= 1) {
                     if (stockTiles.get(i).isWinTile()) {
-                        waitType = calculateWaitType(T, stockTiles.get(i));
+                        //この牌が上がり牌だった場合
+                        waitType = calculateWaitType(Toitsu, stockTiles.get(i));
                     }
                     stockTiles.remove(i);
                     find++;
-                    //logbuf.append(find + " : " + stockTiles.get(i).getFullName());
                     i--;
                 }
             }
@@ -268,7 +279,7 @@ public class mentsuPartition {
      * @return 見つけ出した順子（mentsu型(実体はshuntsu)のList）
      * @since 1.0
      */
-    private List<mentsu> findShuntsu() {
+    private @NotNull List<mentsu> findShuntsu() {
         List<mentsu> find = new ArrayList<>();
         for (int i = 0; i < stockTiles.size(); i++) {
             j:
@@ -277,14 +288,7 @@ public class mentsuPartition {
                     mentsu Shuntsu = new shuntsu(false, stockTiles.get(i), stockTiles.get(j), stockTiles.get(k));
                     if (Shuntsu.isCheckPass()) {
 
-                        if (stockTiles.get(i).isWinTile()) {
-                            waitType = calculateWaitType(Shuntsu, stockTiles.get(i));
-                        }
-
-                        if (stockTiles.get(j).isWinTile()) {
-                            waitType = calculateWaitType(Shuntsu, stockTiles.get(j));
-                        }
-
+                        //上がり牌があるかどうか
                         if (stockTiles.get(k).isWinTile()) {
                             waitType = calculateWaitType(Shuntsu, stockTiles.get(k));
                         }
@@ -307,7 +311,7 @@ public class mentsuPartition {
      * @return 見つけ出した順子（mentsu型(実体はshuntsu)のList）
      * @since 1.0
      */
-    private List<mentsu> findShuntsuR() {
+    private @NotNull List<mentsu> findShuntsuR() {
         List<mentsu> find = new ArrayList<>();
         for (int i = stockTiles.size() - 1; i >= 2; i--) {
             j:
@@ -316,16 +320,9 @@ public class mentsuPartition {
                     mentsu Shuntsu = new shuntsu(false, stockTiles.get(i), stockTiles.get(j), stockTiles.get(k));
                     //logbuf.append(i + " - " + j + " - " + k + " : " + stockTiles.get(i).toString() + stockTiles.get(j).toString() + stockTiles.get(k).toString() + " : " + Shuntsu.isCheckPass + "");
                     if (Shuntsu.isCheckPass()) {
+                        //上がり牌があるかどうか
                         if (stockTiles.get(i).isWinTile()) {
                             waitType = calculateWaitType(Shuntsu, stockTiles.get(i));
-                        }
-
-                        if (stockTiles.get(j).isWinTile()) {
-                            waitType = calculateWaitType(Shuntsu, stockTiles.get(j));
-                        }
-
-                        if (stockTiles.get(k).isWinTile()) {
-                            waitType = calculateWaitType(Shuntsu, stockTiles.get(k));
                         }
                         find.add(Shuntsu);
                         stockTiles.remove(i);
@@ -346,7 +343,7 @@ public class mentsuPartition {
      * @return 見つけ出した刻子（mentsu型(実体はkotsu)のList）
      * @since 1.0
      */
-    private List<mentsu> findKotsu() {
+    private @NotNull List<mentsu> findKotsu() {
         List<mentsu> find = new ArrayList<>();
         for (int i = 0; i < stockTiles.size(); i++) {
             j:
@@ -354,14 +351,7 @@ public class mentsuPartition {
                 for (int k = j + 1; k < stockTiles.size(); k++) {
                     mentsu Kotsu = new kotsu(false, stockTiles.get(i), stockTiles.get(j), stockTiles.get(k));
                     if (Kotsu.isCheckPass()) {
-                        if (stockTiles.get(i).isWinTile()) {
-                            waitType = calculateWaitType(Kotsu, stockTiles.get(i));
-                        }
-
-                        if (stockTiles.get(j).isWinTile()) {
-                            waitType = calculateWaitType(Kotsu, stockTiles.get(j));
-                        }
-
+                        //上がり牌があるかどうか
                         if (stockTiles.get(k).isWinTile()) {
                             waitType = calculateWaitType(Kotsu, stockTiles.get(k));
                         }
@@ -426,7 +416,7 @@ public class mentsuPartition {
      * @since 1.0
      */
     @SafeVarargs
-    private void stockMentsu(List<mentsu>... Mentsuss) {
+    private void stockMentsu(List<mentsu> @NotNull ... Mentsuss) {
         int i = mentsuList.size();
         newStock();
         for (List<mentsu> Mentsus : Mentsuss) {
