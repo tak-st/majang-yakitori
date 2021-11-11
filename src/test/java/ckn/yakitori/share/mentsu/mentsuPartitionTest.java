@@ -1,7 +1,9 @@
 package ckn.yakitori.share.mentsu;
 
 import ckn.yakitori.share.hand;
+import ckn.yakitori.share.tile.tile;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -277,6 +279,54 @@ class mentsuPartitionTest {
     @DisplayName("清一色での面子分割テスト")
     void PartitionTest(String Hand) {
         mentsuPartition M = new mentsuPartition(new hand(Hand));
+        System.out.println(M.getLog());
+
+        System.out.println("\u001b[00;32m面子パターンが" + M.getMentsuList().size() + "個見つかりました。\u001b[00m");
+        System.out.println();
+        for (int i = 0; i <= M.getMentsuList().size() - 1; i++) {
+            System.out.println("\u001b[00;32m" + (i + 1) + "組目\u001b[00m");
+            System.out.println(M.getMentsuList(i));
+            System.out.println("\u001b[00;32m順子" + M.getShuntsuList(i).size() + "個\u001b[00m");
+            System.out.println(M.getShuntsuList(i));
+            System.out.println("\u001b[00;32m刻子" + M.getKotsuList(i).size() + "個\u001b[00m");
+            System.out.println(M.getKotsuList(i));
+            System.out.println("\u001b[00;32m槓子" + M.getKantsuList(i).size() + "個\u001b[00m");
+            System.out.println(M.getKantsuList(i));
+            System.out.println("\u001b[00;32m対子" + M.getToitsuList(i).size() + "個\u001b[00m");
+            System.out.println(M.getToitsuList(i));
+            System.out.println("\u001b[00;32m待ち\u001b[00m");
+            System.out.println(M.getWaitTypeList(i));
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println("\u001b[00;32m2次元ArrayList\u001b[00m");
+        System.out.println(M.getMentsuList());
+        System.out.println("\u001b[00;32m順子\u001b[00m");
+        System.out.println(M.getShuntsuList());
+        System.out.println("\u001b[00;32m刻子\u001b[00m");
+        System.out.println(M.getKotsuList());
+        System.out.println("\u001b[00;32m槓子\u001b[00m");
+        System.out.println(M.getKantsuList());
+        System.out.println("\u001b[00;32m対子\u001b[00m");
+        System.out.println(M.getToitsuList());
+        System.out.println("\u001b[00;32m待ち\u001b[00m");
+        System.out.println(M.getWaitTypeList());
+        assertTrue(M.isCanWin());
+    }
+
+    @Test
+    void hadakaTankiTest() {
+        hand Hand = new hand("1123555666677m1mr");
+        Hand.doChii(new tile("4m"), 2, 3);
+        Hand.doPon(new tile("1m"));
+        Hand.doLightKan(new tile("5m"));
+        Hand.doDarkKan(0);
+        Hand.doAddKan(2);
+        Hand.sortTile();
+        Hand.setContents(Hand.getAll()[1], 2);
+        Hand.setContents(new tile("e"), 1);
+        Hand.sortTile();
+        mentsuPartition M = new mentsuPartition(Hand);
         System.out.println(M.getLog());
 
         System.out.println("\u001b[00;32m面子パターンが" + M.getMentsuList().size() + "個見つかりました。\u001b[00m");

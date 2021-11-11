@@ -177,7 +177,7 @@ public class mentsuPartition {
             if (endCheck()) {
                 logBuf.append("\u001b[00;32m").append(Toitsu.getIdentifierTile().getFullName()).append("(順子優先) : ○ : ").append(ShuntsuListKari).append(KotsuListKari).append("\u001b[00m").append(NEWLINE_CODE);
                 canWin = true;
-                stockMentsu(KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
+                stockMentsu(Hand.getFuuroMentsuList(), KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
             } else {
                 logBuf.append("\u001b[00;31m").append(Toitsu.getIdentifierTile().getFullName()).append("(順子優先) : × : ").append(ShuntsuListKari).append(KotsuListKari).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
             }
@@ -189,7 +189,7 @@ public class mentsuPartition {
             if (endCheck()) {
                 logBuf.append("\u001b[00;32m").append(Toitsu.getIdentifierTile().getFullName()).append("(刻子優先) : ○ : ").append(ShuntsuListKari).append(KotsuListKari).append("\u001b[00m").append(NEWLINE_CODE);
                 canWin = true;
-                stockMentsu(KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
+                stockMentsu(Hand.getFuuroMentsuList(), KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
             } else {
                 logBuf.append("\u001b[00;31m").append(Toitsu.getIdentifierTile().getFullName()).append("(刻子優先) : × : ").append(ShuntsuListKari).append(KotsuListKari).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
 
@@ -203,7 +203,7 @@ public class mentsuPartition {
             if (endCheck()) {
                 logBuf.append("\u001b[00;32m").append(Toitsu.getIdentifierTile().getFullName()).append("(逆順優先) : ○ : ").append(ShuntsuListKari).append(KotsuListKari).append("\u001b[00m").append(NEWLINE_CODE);
                 canWin = true;
-                stockMentsu(KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
+                stockMentsu(Hand.getFuuroMentsuList(), KotsuListKari, ShuntsuListKari, new ArrayList<>(List.of(Toitsu)));
             } else {
                 logBuf.append("\u001b[00;31m").append(Toitsu.getIdentifierTile().getFullName()).append("(逆順優先) : × : ").append(ShuntsuListKari).append(KotsuListKari).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
             }
@@ -418,25 +418,40 @@ public class mentsuPartition {
     @SafeVarargs
     private void stockMentsu(List<mentsu> @NotNull ... Mentsuss) {
         int i = mentsuList.size();
-        newStock();
-        for (List<mentsu> Mentsus : Mentsuss) {
-            for (mentsu Mentsu : Mentsus) {
-                mentsuList.get(i).add(Mentsu);
-                if (Mentsu instanceof shuntsu) {
-                    shuntsuList.get(i).add((shuntsu) Mentsu);
-                }
-                if (Mentsu instanceof kotsu) {
-                    kotsuList.get(i).add((kotsu) Mentsu);
-                }
-                if (Mentsu instanceof toitsu) {
-                    toitsuList.get(i).add((toitsu) Mentsu);
-                }
-                if (Mentsu instanceof kantsu) {
-                    kantsuList.get(i).add((kantsu) Mentsu);
+        if (!checkDuplicate(Mentsuss)) {
+            newStock();
+            for (List<mentsu> Mentsus : Mentsuss) {
+                for (mentsu Mentsu : Mentsus) {
+                    mentsuList.get(i).add(Mentsu);
+                    if (Mentsu instanceof shuntsu) {
+                        shuntsuList.get(i).add((shuntsu) Mentsu);
+                    }
+                    if (Mentsu instanceof kotsu) {
+                        kotsuList.get(i).add((kotsu) Mentsu);
+                    }
+                    if (Mentsu instanceof toitsu) {
+                        toitsuList.get(i).add((toitsu) Mentsu);
+                    }
+                    if (Mentsu instanceof kantsu) {
+                        kantsuList.get(i).add((kantsu) Mentsu);
+                    }
                 }
             }
+            WaitTypeList.add(waitType);
         }
-        WaitTypeList.add(waitType);
+    }
+
+    private boolean checkDuplicate(List<mentsu> @NotNull [] Mentsuss) {
+        ArrayList<mentsu> mentsuListKari = new ArrayList<>();
+        for (List<mentsu> Mentsus : Mentsuss) {
+            mentsuListKari.addAll(Mentsus);
+        }
+        for (ArrayList<mentsu> MentsuList : mentsuList) {
+            if (Objects.equals(MentsuList.toString(), mentsuListKari.toString())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
