@@ -98,7 +98,6 @@ public class toitsu extends mentsu {
         return "対{" +
                 identifierTile.getFullName() + "*2" +
                 (redQuantity != 0 ? " r" + redQuantity : "") +
-                (isOpen ? " <op>" : "") +
                 '}';
     }
 }

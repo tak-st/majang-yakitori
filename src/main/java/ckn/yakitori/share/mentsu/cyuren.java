@@ -79,6 +79,9 @@ public class cyuren extends mentsu {
         boolean x2flag = false;
         int[] tileCount = {0, 0, 0, 0, 0, 0, 0, 0, 0};
         int[] tileGoal = {3, 1, 1, 1, 1, 1, 1, 1, 3};
+        if (Hand.getAll().length != 14) {
+            return false;
+        }
         tileType type = Hand.getContents()[0].getCategory();
 
         Hand.sortTile();
@@ -156,7 +159,6 @@ public class cyuren extends mentsu {
         return "九蓮{" +
                 identifierTile.getFullName() + "*2+12牌" +
                 (redQuantity != 0 ? " r" + redQuantity : "") +
-                (isOpen ? " <op>" : "") +
                 '}';
     }
 }

@@ -83,6 +83,9 @@ public class kokushi extends mentsu {
                 {1, 1, 1, 1},
                 {1, 1, 1}
         };
+        if (Hand.getAll().length != 14) {
+            return false;
+        }
         Hand.sortTile();
         for (tile Tile : Hand.getContents()) {
             int c;
@@ -168,7 +171,6 @@ public class kokushi extends mentsu {
         return "国士{" +
                 identifierTile.getFullName() + "*2+12牌" +
                 (redQuantity != 0 ? " r" + redQuantity : "") +
-                (isOpen ? " <op>" : "") +
                 '}';
     }
 }
