@@ -11,31 +11,110 @@ import java.util.Objects;
 import static ckn.yakitori.share.mentsu.WaitType.*;
 
 /**
+ * 手牌から面子を抜き出し、分割するためのクラスです。
+ * <p>
+ * 手牌クラスを入れると、刻子、順子、対子を探しだし抜き出します。<br>
+ * 待ちの形も計算して返します。<br>
+ * {@link #getMentsuList()}、{@link #getKotsuList()}、{@link #getShuntsuList()}、{@link #getToitsuList()}、{@link #getWaitTypeList()} を使用してください。<br>
+ * 複数パターンが存在する場合が存在するため、２次元配列で返します。<br>
+ * ２次元配列を処理するのがめんどくさい場合は、
+ * {@link #getMentsuList(int)}、{@link #getKotsuList(int)}、{@link #getShuntsuList(int)}、{@link #getToitsuList(int)}、{@link #getWaitTypeList(int)} を使用すると、int番目の牌グループの１次元配列を返します。<br>
+ * </p>
  *
+ * @author Matsushita
+ * @author Shintani
+ * @version 1.0
  */
 public class mentsuPartition {
 
-    private final String NEWLINE_CODE = System.lineSeparator();
+    /**
+     * 見つけ出した面子を保存するリスト
+     */
+    private final ArrayList<ArrayList<mentsu>> mentsuList = new ArrayList<>();
+    /**
+     * 見つけ出した刻子を保存するリスト
+     */
+    private final ArrayList<ArrayList<kotsu>> kotsuList = new ArrayList<>();
+    /**
+     * 見つけ出した順子を保存するリスト
+     */
+    private final ArrayList<ArrayList<shuntsu>> shuntsuList = new ArrayList<>();
+    /**
+     * 見つけ出した対子を保存するリスト
+     */
+    private final ArrayList<ArrayList<toitsu>> toitsuList = new ArrayList<>();
+    /**
+     * 見つけ出した槓子を保存するリスト
+     */
+    private final ArrayList<ArrayList<kantsu>> kantsuList = new ArrayList<>();
+    /**
+     * 計算した待ち形を保存するリスト
+     */
+    private final ArrayList<WaitType> WaitTypeList = new ArrayList<>();
+    /**
+     * ログの文字列を保存する変数
+     */
     private final StringBuffer logBuf = new StringBuffer();
+    /**
+     * 改行コードの定義（OSごとに変化する）
+     */
+    private final String NEWLINE_CODE = System.lineSeparator();
+    /**
+     * 見つけ出した面子を仮保存しておく変数
+     */
     ArrayList<mentsu> TempleList = new ArrayList<>();
-    private hand stockHand;
-    private List<tile> stockTiles;
+    /**
+     * 入力された手牌が上がれるかどうか
+     */
     private boolean canWin = false;
-    ArrayList<ArrayList<kotsu>> kotsuList = new ArrayList<>();
-    ArrayList<ArrayList<toitsu>> toitsuList = new ArrayList<>();
-    ArrayList<ArrayList<shuntsu>> shuntsuList = new ArrayList<>();
-    ArrayList<ArrayList<mentsu>> mentsuList = new ArrayList<>();
-    ArrayList<ArrayList<kantsu>> kantsuList = new ArrayList<>();
-    ArrayList<WaitType> WaitTypeList = new ArrayList<>();
-
+    /**
+     * 計算した待ち形を仮保存しておく変数
+     */
     private WaitType waitType;
+    /**
+     * 最初の手牌を保存しておく配列
+     */
+    private List<tile> stockTiles;
 
-    public mentsuPartition(hand Hand, boolean isOpen) {
-        DoPartition(Hand, isOpen);
+
+    /**
+     * 手牌分割メソッドへHandを送るコンストラクタです。
+     *
+     * @param Hand 分割したい手牌
+     * @since 1.0
+     */
+    public mentsuPartition(hand Hand) {
+        DoPartition(Hand);
 
     }
 
-    private void DoPartition(hand Hand, boolean isOpen) {
+    /**
+     * 手牌分割を行い、List系に結果を入れるメソッドです。
+     *
+     * <p>判定方法をここに記しておきます。</p>
+     * <ol>
+     *     <li>国士無双かどうかチェックする。</li>
+     *       <ul>
+     *         <li>国士無双だった場合、十三面待ちか単騎待ちかのチェック。</li>
+     *       </ul>
+     *     <li>九蓮宝燈かどうかチェックする。</li>
+     *       <ul>
+     *         <li>九蓮宝燈だった場合、九面待ちか単騎待ちかのチェック。</li>
+     *       </ul>
+     *     <li>対子となりうる全てのパターンを調べる。</li>
+     *     <li>対子となりうる牌の種類が7種類なら七対子とする。</li>
+     *     <li>1つ目の対子となりうる牌を対子と仮定し、除外する。</li>
+     *     <li>左から順子を探し、その後刻子を探して、すべての牌が抜き出せたかチェックする。</li>
+     *     <li>刻子を探し、その後左から順子を探し、すべての牌が抜き出せたかチェックする。</li>
+     *     <li>右から順子を探し、その後刻子を探して、すべての牌が抜き出せたかチェックする。</li>
+     *     <li>抜き出せた牌をListに保存しておき、次の対子となりうる牌を抜き出す、そして6に戻る。</li>
+     * </ol>
+     * <p>{@link #getLog()}で詳細なログを取得することができます。</p>
+     *
+     * @param Hand 分割したい手牌
+     * @since 1.0
+     */
+    private void DoPartition(hand Hand) {
 
         Hand.sortTile();
         Hand.getPickTile().setWinTile(true);
@@ -82,7 +161,8 @@ public class mentsuPartition {
             return;
         }
         for (mentsu toi : T) {
-            rollbackStock(Hand, (toitsu) toi);
+            rollbackStock(Hand);
+            removeToitsu((toitsu) toi);
             List<mentsu> S = findShuntsu();
             List<mentsu> K = findKotsu();
 
@@ -93,7 +173,8 @@ public class mentsuPartition {
             } else {
                 logBuf.append("\u001b[00;31m").append(toi.getIdentifierTile().getFullName()).append("(順子優先) : × : ").append(S).append(K).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
             }
-            rollbackStock(Hand, (toitsu) toi);
+            rollbackStock(Hand);
+            removeToitsu((toitsu) toi);
             K = findKotsu();
             S = findShuntsu();
             if (endCheck()) {
@@ -104,7 +185,8 @@ public class mentsuPartition {
                 logBuf.append("\u001b[00;31m").append(toi.getIdentifierTile().getFullName()).append("(刻子優先) : × : ").append(S).append(K).append(" が取り出せましたが、").append(stockTiles).append(" が余りました。\u001b[00m").append(NEWLINE_CODE);
 
             }
-            rollbackStock(Hand, (toitsu) toi);
+            rollbackStock(Hand);
+            removeToitsu((toitsu) toi);
             S = findShuntsuR();
             K = findKotsu();
 
@@ -118,6 +200,12 @@ public class mentsuPartition {
         }
     }
 
+    /**
+     * stockTilesに入ってある牌の中で、対子となりうる牌をすべて返すメソッドです。
+     *
+     * @return 対子となりうる牌（mentsu型(実体はtoitsu)のList）
+     * @since 1.0
+     */
     private List<mentsu> findAllToitsu() {
         List<mentsu> find = new ArrayList<>();
         ArrayList<String> maeToitsu = new ArrayList<>();
@@ -137,23 +225,33 @@ public class mentsuPartition {
         return find;
     }
 
+    /**
+     * 仮に収納しておく用の変数を初期化するメソッドです。
+     *
+     * <p>stockTiles、waitTypeを初期状態に戻します。</p>
+     *
+     * @param Hand stockHandにコピーする手牌
+     * @since 1.0
+     */
     private void rollbackStock(hand Hand) {
-        stockHand = Hand;
+        stockTiles = new ArrayList<>(Arrays.asList(Hand.getAll()));
         waitType = null;
-        stockTiles = new ArrayList<>(Arrays.asList(stockHand.getAll()));
     }
 
-    private void rollbackStock(hand Hand, toitsu removeToitsu) {
-        stockHand = Hand;
-        waitType = null;
-        stockTiles = new ArrayList<>(Arrays.asList(stockHand.getAll()));
+    /**
+     * stockTilesから入力された対子を抜き出し、除外するメソッドです。
+     *
+     * @param Toitsu stockTilesのどこにあるか検索し、除外したい対子
+     * @since 1.0
+     */
+    private void removeToitsu(toitsu Toitsu) {
         int find = 0;
         for (int i = 0; i < stockTiles.size(); i++) {
-            mentsu Toitsu = new toitsu(stockTiles.get(i), removeToitsu.getIdentifierTile());
-            if (Toitsu.isCheckPass()) {
+            mentsu T = new toitsu(stockTiles.get(i), Toitsu.getIdentifierTile());
+            if (T.isCheckPass()) {
                 if (find <= 1) {
                     if (stockTiles.get(i).isWinTile()) {
-                        waitType = calculateWaitType(Toitsu, stockTiles.get(i));
+                        waitType = calculateWaitType(T, stockTiles.get(i));
                     }
                     stockTiles.remove(i);
                     find++;
@@ -164,6 +262,12 @@ public class mentsuPartition {
         }
     }
 
+    /**
+     * stockTilesの中から順子になる物を左から抜き出し、除外するメソッドです。
+     *
+     * @return 見つけ出した順子（mentsu型(実体はshuntsu)のList）
+     * @since 1.0
+     */
     private List<mentsu> findShuntsu() {
         List<mentsu> find = new ArrayList<>();
         for (int i = 0; i < stockTiles.size(); i++) {
@@ -197,6 +301,12 @@ public class mentsuPartition {
         return find;
     }
 
+    /**
+     * stockTilesの中から順子になる物を右から抜き出し、除外するメソッドです。
+     *
+     * @return 見つけ出した順子（mentsu型(実体はshuntsu)のList）
+     * @since 1.0
+     */
     private List<mentsu> findShuntsuR() {
         List<mentsu> find = new ArrayList<>();
         for (int i = stockTiles.size() - 1; i >= 2; i--) {
@@ -230,6 +340,12 @@ public class mentsuPartition {
         return find;
     }
 
+    /**
+     * stockTilesの中から刻子になる物を抜き出し、除外するメソッドです。
+     *
+     * @return 見つけ出した刻子（mentsu型(実体はkotsu)のList）
+     * @since 1.0
+     */
     private List<mentsu> findKotsu() {
         List<mentsu> find = new ArrayList<>();
         for (int i = 0; i < stockTiles.size(); i++) {
@@ -262,6 +378,16 @@ public class mentsuPartition {
         return find;
     }
 
+    /**
+     * 上がり牌が含まれている面子と上がり牌の関係から待ち時の形を計算するメソッドです。
+     *
+     * @param Mentsu 上がり牌が含まれている面子
+     * @param Tile   上がりに使用された牌
+     * @return 待ち形（WaitType型）
+     * @throws IllegalArgumentException 面子に上がり牌が含まれていないなど計算が行えない場合
+     * @see WaitType
+     * @since 1.0
+     */
     private WaitType calculateWaitType(mentsu Mentsu, tile Tile) {
         if (Mentsu instanceof shuntsu) {
             if (Objects.equals(Mentsu.getIdentifierTile().getFullName(), Tile.getFullName())) {
@@ -291,6 +417,15 @@ public class mentsuPartition {
         throw new IllegalArgumentException("引数が不正です。");
     }
 
+    /**
+     * 面子を適切なリストに格納するメソッドです。
+     *
+     * <p>面子がなにであるかも判定し、適切なリストに格納します。</p>
+     *
+     * @param Mentsuss リストに追加する面子 mentsuのListである必要があります。(1つしかなくてもリストにする必要があります。) (何個でも引数を追加可能です。)
+     * @since 1.0
+     */
+    @SafeVarargs
     private void stockMentsu(List<mentsu>... Mentsuss) {
         int i = mentsuList.size();
         newStock();
@@ -314,6 +449,13 @@ public class mentsuPartition {
         WaitTypeList.add(waitType);
     }
 
+    /**
+     * 新しい空のArrayListを5つのリストに追加するメソッドです。
+     *
+     * <p>複数パターンの抜き出し方がある時に区切りを付けるために使用します。</p>
+     *
+     * @since 1.0
+     */
     private void newStock() {
         mentsuList.add(new ArrayList<>());
         shuntsuList.add(new ArrayList<>());
@@ -322,62 +464,159 @@ public class mentsuPartition {
         kantsuList.add(new ArrayList<>());
     }
 
+    /**
+     * 手牌が上がれるかどうかを返します。
+     *
+     * @return 手牌が上がれるかどうか
+     * @since 1.0
+     */
     public boolean isCanWin() {
         return canWin;
     }
 
+    /**
+     * stockTilesの牌の数が0かどうかを返します。
+     *
+     * @return stockTilesの牌の数が0かどうか
+     * @since 1.0
+     */
     private boolean endCheck() {
         return stockTiles.size() == 0;
     }
 
+    /**
+     * 抜き出した刻子のリストを2次元ArrayListで返します。
+     *
+     * @return 抜き出した刻子のリスト（2次元ArrayList）
+     * @since 1.0
+     */
     public ArrayList<ArrayList<kotsu>> getKotsuList() {
         return kotsuList;
     }
 
+
+    /**
+     * 入力された組目の抜き出した刻子のリストをArrayListで返します。
+     *
+     * @param Num 何組目の抜き出し形の物を返すか
+     * @return 抜き出した刻子のリスト（ArrayList）
+     * @since 1.0
+     */
     public ArrayList<kotsu> getKotsuList(int Num) {
         return kotsuList.get(Num);
     }
 
+    /**
+     * 抜き出した対子のリストを2次元ArrayListで返します。
+     *
+     * @return 抜き出した対子のリスト（2次元ArrayList）
+     * @since 1.0
+     */
     public ArrayList<ArrayList<toitsu>> getToitsuList() {
         return toitsuList;
     }
 
+    /**
+     * 入力された組目の抜き出した対子のリストをArrayListで返します。
+     *
+     * @param Num 何組目の抜き出し形の物を返すか
+     * @return 抜き出した対子のリスト（ArrayList）
+     * @since 1.0
+     */
     public ArrayList<toitsu> getToitsuList(int Num) {
         return toitsuList.get(Num);
     }
 
+    /**
+     * 抜き出した順子のリストを2次元ArrayListで返します。
+     *
+     * @return 抜き出した順子のリスト（2次元ArrayList）
+     * @since 1.0
+     */
     public ArrayList<ArrayList<shuntsu>> getShuntsuList() {
         return shuntsuList;
     }
 
+    /**
+     * 入力された組目の抜き出した順子のリストをArrayListで返します。
+     *
+     * @param Num 何組目の抜き出し形の物を返すか
+     * @return 抜き出した順子のリスト（ArrayList）
+     * @since 1.0
+     */
     public ArrayList<shuntsu> getShuntsuList(int Num) {
         return shuntsuList.get(Num);
     }
 
+    /**
+     * 抜き出した面子のリストを2次元ArrayListで返します。
+     *
+     * @return 抜き出した面子のリスト（2次元ArrayList）
+     * @since 1.0
+     */
     public ArrayList<ArrayList<mentsu>> getMentsuList() {
         return mentsuList;
     }
 
+    /**
+     * 入力された組目の抜き出した面子のリストをArrayListで返します。
+     *
+     * @param Num 何組目の抜き出し形の物を返すか
+     * @return 抜き出した面子のリスト（ArrayList）
+     * @since 1.0
+     */
     public ArrayList<mentsu> getMentsuList(int Num) {
         return mentsuList.get(Num);
     }
 
+    /**
+     * 抜き出した槓子のリストを2次元ArrayListで返します。
+     *
+     * @return 抜き出した槓子のリスト（2次元ArrayList）
+     * @since 1.0
+     */
     public ArrayList<ArrayList<kantsu>> getKantsuList() {
         return kantsuList;
     }
 
+    /**
+     * 入力された組目の抜き出した槓子のリストをArrayListで返します。
+     *
+     * @param Num 何組目の抜き出し形の物を返すか
+     * @return 抜き出した槓子のリスト（ArrayList）
+     * @since 1.0
+     */
     public ArrayList<kantsu> getKantsuList(int Num) {
         return kantsuList.get(Num);
     }
 
+    /**
+     * 待ち形のリストをArrayListで返します。
+     *
+     * @return 待ちの形（WaitTypeのArrayList）
+     * @since 1.0
+     */
     public ArrayList<WaitType> getWaitTypeList() {
         return WaitTypeList;
     }
 
+    /**
+     * 入力された組目の待ちの形を返します。
+     *
+     * @param Num 何組目の抜き出し形の物を返すか
+     * @return 待ちの形（WaitType）
+     * @since 1.0
+     */
     public WaitType getWaitTypeList(int Num) {
         return WaitTypeList.get(Num);
     }
 
+    /**
+     * 面子分解処理の詳細なログを返します。
+     *
+     * @return 面子分解処理の詳細なログ
+     * @since 1.0
+     */
     public String getLog() {
         return logBuf.toString();
     }

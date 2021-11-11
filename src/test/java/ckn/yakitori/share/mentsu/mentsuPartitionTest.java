@@ -273,7 +273,7 @@ class mentsuPartitionTest {
             "1245566677899m3m",
     })
     void ChinituTest(String Hand) {
-        mentsuPartition M = new mentsuPartition(new hand(Hand), false);
+        mentsuPartition M = new mentsuPartition(new hand(Hand));
         //System.out.println(M.getLog());
 
         for (int i = 0; i <= M.getMentsuList().size() - 1; i++) {
