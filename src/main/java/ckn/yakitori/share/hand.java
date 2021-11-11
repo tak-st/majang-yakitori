@@ -35,7 +35,6 @@ public class hand {
     /**
      * Stringを使い１４個の牌を生成します。
      *
-     * <p>
      * <ul>
      *  <li>1m2p3sというように数字+小文字の種類と指定するとその牌を生成できます。</li>
      *  <li>123mというように同じ種類の場合省略した書き方も可能です。</li>
@@ -44,7 +43,6 @@ public class hand {
      *  <li>最後の牌は省略せず5mrみたいな形で指定する必要があります。</li>
      *  <li>14牌を超える文字列は無視されます。<br>
      * </ul>
-     * </p>
      *
      * @param string 手牌を示すString型の文字列
      * @since 1.0
@@ -308,15 +306,11 @@ public class hand {
 
     /**
      * 文字列型として解釈された際に、中身がわかりやすいように出力するメソッドです。
-     *
-     * <p>
+     * <p></p>
      * <pre>
      *     手牌{1m2m3m4m5m6m7m8m9m1s2s3s4s / 4s}
      * </pre>
-     * </p>
-     * <p>
-     * みたいな形で返されます。
-     * </p>
+     * <p>みたいな形で返されます。</p>
      * <p>副露している面子があればそれも表示します。</p>
      *
      * @return handの中身を示す文字列（String型）
@@ -433,6 +427,11 @@ public class hand {
         }
     }
 
+    /**
+     * 副露で生成された面子を取得するメソッドです。
+     *
+     * @return 副露で生成された面子
+     */
     public List<mentsu> getFuuroMentsuList() {
         return fuuroMentsuList;
     }

@@ -132,6 +132,11 @@ public class kantsu extends mentsu {
         return new tile[]{tile1, tile2, tile3, tile4};
     }
 
+    /**
+     * カンの種類を取得するメソッドです。
+     *
+     * @return カンの種類（KantsuType型）
+     */
     public kantsuType getKantsuType() {
         return KantsuType;
     }
