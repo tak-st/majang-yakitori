@@ -1,7 +1,9 @@
 package ckn.yakitori.share.score;
 
 import ckn.yakitori.share.hand;
+import ckn.yakitori.share.mentsu.mentsu;
 import ckn.yakitori.share.mentsu.mentsuPartition;
+import ckn.yakitori.share.yaku.riichi;
 
 public class scoreCalculation {
     scoreCalculation(hand Hand) {
@@ -18,7 +20,20 @@ public class scoreCalculation {
             sg.setToitsuList(MentsuP.getToitsuList(i));
             sg.setWaitTypeList(MentsuP.getWaitTypeList(i));
 
+            int han = 0;
+            boolean kuisagari = false;
+            for (mentsu Mentsu : sg.getMentsuList()) {
+                if (Mentsu.isOpen()) {
+                    kuisagari = true;
+                    break;
+                }
+            }
+
             // ここから役ごとの成立判定
+            riichi riichi = new riichi(sg);
+            if (riichi.isCheckPass()) {
+                han = han + (!kuisagari ? riichi.getYakuInfo().getHan() : riichi.getYakuInfo().getKuisagari());
+            }
         }
     }
 }
