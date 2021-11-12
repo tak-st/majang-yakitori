@@ -275,6 +275,7 @@ class mentsuPartitionTest {
             "1112334456689m7m",
             "3334445556677m7m",
             "1245566677899m3m",
+            "2233446677889m9m"
     })
     @DisplayName("清一色での面子分割テスト")
     void PartitionTest(String Hand) {

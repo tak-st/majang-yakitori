@@ -164,7 +164,6 @@ public class mentsuPartition {
             waitType = TANKI;
             stockMentsu(ToitsuCandidate);
             canWin = true;
-            return;
         }
         //各対子に対して探す(5,9)
         for (mentsu Toitsu : ToitsuCandidate) {
