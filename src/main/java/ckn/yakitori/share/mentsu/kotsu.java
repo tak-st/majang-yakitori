@@ -99,4 +99,13 @@ public class kotsu extends mentsu {
         }
         return Fu;
     }
+
+    @Override
+    public String toString() {
+        return "刻{" + identifierTile.getFullName() + "*3" +
+                (redQuantity != 0 ? " r" + redQuantity : "") +
+                (isOpen ? " <op>" : "") +
+                '}';
+    }
+
 }

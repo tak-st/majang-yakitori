@@ -106,4 +106,9 @@ class kotsuTest {
         assertEquals(8, Mentsu.getFu());
     }
 
+    @Test
+    void toStringTest() {
+        mentsu Mentsu = new kotsu(true, new tile(MANZU, 5, true), 3);
+        assertEquals("刻{5m*3 r3 <op>}", Mentsu.toString());
+    }
 }
