@@ -29,6 +29,14 @@ public class discardTile {
      */
     boolean isStealed;
 
+
+    /**
+     * @param Tile 　捨て牌の情報です。
+     */
+    public discardTile(tile Tile) {
+        this(Tile, false, false, false);
+    }
+
     /**
      * コンストラクタ　値を初期化します。
      *
@@ -37,13 +45,17 @@ public class discardTile {
      * @param isImmediatery  この牌がツモ切りされたかどうか
      * @param isStealed      　この牌が鳴かれて消えているかどうか
      */
-    discardTile(tile Tile, boolean isCalledRiichi, boolean isImmediatery, boolean isStealed) {
+
+    public discardTile(tile Tile, boolean isCalledRiichi, boolean isImmediatery, boolean isStealed) {
         this.Tile = Tile;
         this.isCalledRiichi = isCalledRiichi;
         this.isImmediately = isImmediatery;
         this.isStealed = isStealed;
     }
 
+    public tile getTile() {
+        return Tile;
+    }
 
     public boolean getCalledRiichi() {
         return this.isCalledRiichi;
