@@ -1,6 +1,7 @@
 package ckn.yakitori.server;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -9,6 +10,9 @@ public class server {
         int PORT = 25500;
         String henji = "焼鳥サーバーです。"; //各自変更
         try {
+            InetAddress addr = InetAddress.getLocalHost();
+            System.out.println("Local Host Name: " + addr.getHostName());
+            System.out.println("IP Address     : " + addr.getHostAddress());
             ServerSocket mysvsoc = new ServerSocket(PORT);
             while (true) {
                 //クライアントが接続してくるまで待ち続ける
