@@ -42,7 +42,11 @@ class discardAreaTest {
         DiscardArea.addDiscardTile(new discardTile(new tile("1z")));
         assertTrue(DiscardArea.Nagashicheck(), "1");
 
+        DiscardArea = new discardArea();
+        DiscardArea.addDiscardTile(new discardTile(new tile("1z"), false, false, true));
+        assertFalse(DiscardArea.Nagashicheck(), "1");
 
+        DiscardArea = new discardArea();
         DiscardArea.addDiscardTile(new discardTile(new tile("2m")));
         assertFalse(DiscardArea.Nagashicheck(), "1");
     }

@@ -48,7 +48,10 @@ public class discardArea {
     public boolean Nagashicheck() {
 
         for (int i = 0; i < getDiscardList().size(); i++) {
-            if (!getDiscardList().get(i).getTile().getYaochu() || getDiscardList().get(i).isStealed()) {
+            if (!getDiscardList().get(i).getTile().getYaochu()) {
+                return false;
+            }
+            if (getDiscardList().get(i).isStealed()) {
                 return false;
             }
         }
