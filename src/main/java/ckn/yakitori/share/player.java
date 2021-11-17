@@ -1,4 +1,4 @@
-package ckn.yakitori.client;
+package ckn.yakitori.share;
 
 /**
  * プレイヤーの持ち点変動の処理です。

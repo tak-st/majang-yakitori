@@ -1,4 +1,4 @@
-package ckn.yakitori.client;
+package ckn.yakitori.share;
 
 import org.junit.jupiter.api.Test;
 
