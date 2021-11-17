@@ -34,7 +34,6 @@ class chunTest {
         hand1 = new kotsu(false, new tile("4z"), 0);
         kotsuList.clear();
         kotsuList.add(hand1);
-        Chun = new chun(sg);
         sg.setKotsuList(kotsuList);
         Chun = new chun(sg);
         assertFalse(Chun.isCheckPass());
@@ -49,7 +48,6 @@ class chunTest {
         hand2 = new kantsu(false, new tile("4z"), 0);
         kantsuList.clear();
         kantsuList.add(hand2);
-        Chun = new chun(sg);
         sg.setKantsuList(kantsuList);
         Chun = new chun(sg);
         assertFalse(Chun.isCheckPass());

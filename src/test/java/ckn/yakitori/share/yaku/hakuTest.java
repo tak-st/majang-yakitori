@@ -34,7 +34,6 @@ class hakuTest {
         hand1 = new kotsu(false, new tile("4z"), 0);
         kotsuList.clear();
         kotsuList.add(hand1);
-        Haku = new haku(sg);
         sg.setKotsuList(kotsuList);
         Haku = new haku(sg);
         assertFalse(Haku.isCheckPass());
@@ -49,7 +48,6 @@ class hakuTest {
         hand2 = new kantsu(false, new tile("4z"), 0);
         kantsuList.clear();
         kantsuList.add(hand2);
-        Haku = new haku(sg);
         sg.setKantsuList(kantsuList);
         Haku = new haku(sg);
         assertFalse(Haku.isCheckPass());

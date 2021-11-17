@@ -34,7 +34,6 @@ class hatsuTest {
         hand1 = new kotsu(false, new tile("4z"), 0);
         kotsuList.clear();
         kotsuList.add(hand1);
-        Hatsu = new hatsu(sg);
         sg.setKotsuList(kotsuList);
         Hatsu = new hatsu(sg);
         assertFalse(Hatsu.isCheckPass());
@@ -49,7 +48,6 @@ class hatsuTest {
         hand2 = new kantsu(false, new tile("4z"), 0);
         kantsuList.clear();
         kantsuList.add(hand2);
-        Hatsu = new hatsu(sg);
         sg.setKantsuList(kantsuList);
         Hatsu = new hatsu(sg);
         assertFalse(Hatsu.isCheckPass());

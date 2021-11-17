@@ -27,6 +27,7 @@ class bakazeTest {
         ArrayList<kotsu> kotsuList = new ArrayList<>();
         kotsuList.add(hand1);
         statusGroup sg = new statusGroup();
+        sg.setBakaze(1);
         sg.setKotsuList(kotsuList);
         bakaze Bakaze = new bakaze(sg);
         assertTrue(Bakaze.isCheckPass());
@@ -34,22 +35,23 @@ class bakazeTest {
         hand1 = new kotsu(false, new tile("6z"), 0);
         kotsuList.clear();
         kotsuList.add(hand1);
-        Bakaze = new bakaze(sg);
+        sg.setBakaze(5);
         sg.setKotsuList(kotsuList);
         Bakaze = new bakaze(sg);
         assertFalse(Bakaze.isCheckPass());
         //槓子テスト-True
-        kantsu hand2 = new kantsu(false, new tile("1z"), 0);
+        kantsu hand2 = new kantsu(false, new tile("4z"), 0);
         ArrayList<kantsu> kantsuList = new ArrayList<>();
         kantsuList.add(hand2);
+        sg.setBakaze(4);
         sg.setKantsuList(kantsuList);
         Bakaze = new bakaze(sg);
         assertTrue(Bakaze.isCheckPass());
         //槓子テスト-False
-        hand2 = new kantsu(false, new tile("6z"), 0);
+        hand2 = new kantsu(false, new tile("5z"), 0);
         kantsuList.clear();
         kantsuList.add(hand2);
-        Bakaze = new bakaze(sg);
+        sg.setBakaze(2);
         sg.setKantsuList(kantsuList);
         Bakaze = new bakaze(sg);
         assertFalse(Bakaze.isCheckPass());
