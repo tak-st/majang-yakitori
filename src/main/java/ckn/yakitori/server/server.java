@@ -1,51 +1,32 @@
 package ckn.yakitori.server;
 
-import java.io.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
-public class server {
+import java.io.IOException;
+
+public class server extends Application {
     public static void main(String[] args) {
-        int PORT = 25500;
-        String henji = "焼鳥サーバーです。"; //各自変更
-        try {
-            InetAddress addr = InetAddress.getLocalHost();
-            System.out.println("Local Host Name: " + addr.getHostName());
-            System.out.println("IP Address     : " + addr.getHostAddress());
-            ServerSocket mysvsoc = new ServerSocket(PORT);
-            while (true) {
-                //クライアントが接続してくるまで待ち続ける
-                System.out.println("Server03 waiting...");
-                Socket mysoc = mysvsoc.accept();
-                //接続してきたホストの名前を表示
-                String remotehost = mysoc.getInetAddress().getHostName();
-                System.out.println(remotehost + " からメッセージです。:");
-                // メッセージを受信
-                InputStreamReader in
-                        = new InputStreamReader(mysoc.getInputStream());
-                BufferedReader inb = new BufferedReader(in);
-                // 今回は1行のみ受信
-                String line;
-                line = inb.readLine();
-                System.out.println(line);
-                // メッセージに返信
-
-                OutputStreamWriter out
-                        = new OutputStreamWriter(mysoc.getOutputStream());
-                BufferedWriter outb = new BufferedWriter(out);
-                outb.write(henji);
-                outb.newLine();
-
-                outb.close();
-                out.close();
-                inb.close();
-                in.close();
-                mysoc.close();
-                break;
-            }
-        } catch (IOException e) {
-            System.err.println("IO Error");
-        }
+        Application.launch(server.class);
     }
+
+    /**
+     * クライアント用の画面を表示します。
+     *
+     * @param stage stage型の引数
+     * @throws IOException resourcesフォルダにファイルが見つからなかった場合の例外
+     */
+    @Override
+    public void start(@NotNull Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("server.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("麻雀サーバー");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
 }
