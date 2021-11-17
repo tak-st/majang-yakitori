@@ -7,18 +7,17 @@ import ckn.yakitori.share.score.statusGroup;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static ckn.yakitori.share.tile.tileType.FONPAI;
 import static ckn.yakitori.share.yaku.yakuInfo.JIKAZE;
 
 public class jikaze implements yaku {
 
-    private statusGroup StatusGroup;
-    private String jikaze;
-    private ArrayList<kotsu> kotsuList = new ArrayList<>();
-    private ArrayList<kantsu> kantsuList = new ArrayList<>();
+    private final int jikaze;
+    private final ArrayList<kotsu> kotsuList;
+    private final ArrayList<kantsu> kantsuList;
 
     public jikaze(statusGroup StatusGroup) {
-        this.StatusGroup = StatusGroup;
-        this.jikaze = StatusGroup.getJikaze() + "z";
+        this.jikaze = StatusGroup.getJikaze();
         this.kotsuList = StatusGroup.getKotsuList();
         this.kantsuList = StatusGroup.getKantsuList();
     }
@@ -42,13 +41,17 @@ public class jikaze implements yaku {
     public boolean isCheckPass() {
 
         for (kotsu kot : kotsuList) {
-            if (Objects.equals(kot.getIdentifierTile().getFullName(), jikaze)) {
-                return true;
+            if (kot.getIdentifierTile().getCategory() == FONPAI) {
+                if (Objects.equals(kot.getIdentifierTile().getNumber(), jikaze)) {
+                    return true;
+                }
             }
         }
         for (kantsu kat : kantsuList) {
-            if (Objects.equals(kat.getIdentifierTile().getFullName(), jikaze)) {
-                return true;
+            if (kat.getIdentifierTile().getCategory() == FONPAI) {
+                if (Objects.equals(kat.getIdentifierTile().getNumber(), jikaze)) {
+                    return true;
+                }
             }
         }
         return false;
