@@ -8,7 +8,6 @@ public class riichi implements yaku {
 
 
     private statusGroup StatusGroup;
-    private boolean bool = false;
 
     public riichi(statusGroup StatusGroup) {
         this.StatusGroup = StatusGroup;
