@@ -1,27 +1,26 @@
-package ckn.yakitori.client.player;
+package ckn.yakitori.client;
 
 import org.junit.jupiter.api.Test;
 
-class playerScoreTest {
-
+class playerTest {
 
     @Test
     void changeScore() {
 
-        playerScore PlayScore = new playerScore();
+        player PlayScore = new player();
         PlayScore.setPlayer_score(25000);
-        PlayScore.changeScore(1000);
+        PlayScore.changeScore(-1000);
     }
 
     @Test
     void setPlayer_score() {
-        playerScore PlayScore = new playerScore();
+        player PlayScore = new player();
         PlayScore.setPlayer_score(25000);
     }
 
     @Test
     void getPlayer_score() {
-        playerScore PlayScore = new playerScore();
+        player PlayScore = new player();
         PlayScore.getPlayer_score();
     }
 }

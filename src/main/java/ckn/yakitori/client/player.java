@@ -1,4 +1,4 @@
-package ckn.yakitori.client.player;
+package ckn.yakitori.client;
 
 /**
  * プレイヤーの持ち点変動の処理です。
@@ -6,7 +6,7 @@ package ckn.yakitori.client.player;
  * @author mizu
  * @version 1.0
  */
-public class playerScore {
+public class player {
 
     /**
      * プレイヤーの持ち点です。
@@ -20,14 +20,14 @@ public class playerScore {
         this.player_score += num;
     }
 
-    public int getPlayer_score() {
-        return player_score;
-    }
-
     /**
      * @param score 各プレイヤーの初期持ち点を設定します。
      */
     public void setPlayer_score(int score) {
         this.player_score = score;
+    }
+
+    public int getPlayer_score() {
+        return player_score;
     }
 }
