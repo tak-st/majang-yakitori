@@ -1,5 +1,7 @@
 package ckn.yakitori.share.tile;
 
+import java.io.Serializable;
+
 import static ckn.yakitori.share.tile.tileType.*;
 
 /**
@@ -10,7 +12,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * @author Shintani
  * @version 1.8
  */
-public class tile {
+public class tile implements Serializable {
     /**
      * 種類
      */
