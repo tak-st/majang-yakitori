@@ -1,4 +1,4 @@
-package ckn.yakitori.server.discard;
+package ckn.yakitori.share.discard;
 
 import ckn.yakitori.share.tile.tile;
 
