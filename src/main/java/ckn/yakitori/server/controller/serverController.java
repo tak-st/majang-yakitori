@@ -103,7 +103,7 @@ public class serverController {
                 }
             }
             case "status" -> logArea.appendText("山情報 - 残り" + Mountain.getRemaingTile() + "牌\n");
-            case "statusAll" -> logArea.appendText(Mountain + "\n");
+            case "statusall" -> logArea.appendText(Mountain + "\n");
             case "resume" -> {
                 if (!runflag) {
                     nextid = 1;
@@ -280,9 +280,15 @@ public class serverController {
                                         outStream.flush();
                                         logArea.appendText("山をSequenceタイプで作成しました。" + "\n");
                                     } else {
-                                        outStream.println("すでに山があります。");
+                                        outStream.println("すでに山があります。" + Mountain);
                                         outStream.flush();
                                     }
+                                }
+                                case "mountainClear" -> {
+                                    Mountain = null;
+                                    outStream.println("山を初期化しました。");
+                                    outStream.flush();
+                                    logArea.appendText("山を初期化しました。" + "\n");
                                 }
                                 case "alive" -> {
 

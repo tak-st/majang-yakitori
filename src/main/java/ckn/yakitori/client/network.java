@@ -5,6 +5,7 @@ import ckn.yakitori.share.tile.tile;
 import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class network {
@@ -12,12 +13,13 @@ public class network {
     OutputStreamWriter out;
     BufferedWriter outb;
     InputStreamReader in;
+    InputStream inp = null;
     BufferedReader inb;
     ObjectInputStream Obin;
     boolean loopFlag = true;
     Thread t = new Thread(this::alive);
 
-    network(String address) {
+    public network(String address) {
         connect(address);
     }
 
@@ -34,6 +36,7 @@ public class network {
             Obin = new ObjectInputStream(mySoc.getInputStream());
             in = new InputStreamReader(mySoc.getInputStream());
             inb = new BufferedReader(in);
+            inp = mySoc.getInputStream();
 
             String line;
             SendString("Let's Go Boys Yakitori");
@@ -49,20 +52,46 @@ public class network {
         }
     }
 
-    public String getReceive() throws IOException {
+    public String getReceive() {
         String line;
-        line = inb.readLine();
-        return line;
+        try {
+            while (true) {
+                if (inp.available() != 0) {
+                    line = inb.readLine();
+                    return line;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(Arrays.toString(e.getStackTrace()) + " - IO Error : " + e);
+        }
+        return null;
     }
 
-    public tile getReceiveTile() throws IOException, ClassNotFoundException {
-        return (tile) Obin.readObject();
+    public tile getReceiveTile() {
+
+        try {
+            while (true) {
+                if (inp.available() != 0) {
+                    return (tile) Obin.readObject();
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(Arrays.toString(e.getStackTrace()) + " - IO Error : " + e);
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.err.println("クラスが見つからないようです。");
+            return null;
+        }
     }
 
-    public void SendString(String s) throws IOException {
-        outb.write(s);
-        outb.newLine();
-        outb.flush();
+    public void SendString(String s) {
+        try {
+            outb.write(s);
+            outb.newLine();
+            outb.flush();
+        } catch (IOException e) {
+            System.err.println("IO Error : " + e);
+        }
     }
 
     private void alive() {
@@ -70,8 +99,8 @@ public class network {
             try {
                 SendString("alive");
                 Thread.sleep(100000);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
+            } catch (InterruptedException e) {
+                System.err.println("割り込みによる処理中断 : " + e);
             }
         }
     }
@@ -89,7 +118,7 @@ public class network {
             out.close();
             mySoc.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("IO Error : " + e);
         }
     }
 }
