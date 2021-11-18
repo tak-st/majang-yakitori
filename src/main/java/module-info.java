@@ -10,6 +10,8 @@ open module ckn.yakitori {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires org.jetbrains.annotations;
+    requires java.datatransfer;
+    requires java.desktop;
 
     exports ckn.yakitori;
     exports ckn.yakitori.server;
