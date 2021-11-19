@@ -23,8 +23,8 @@ public class client extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("title.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("practice.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setTitle("本格ネット麻雀 焼鳥");
         stage.setScene(scene);
         stage.show();

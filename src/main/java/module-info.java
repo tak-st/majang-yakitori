@@ -1,17 +1,14 @@
 /**
  * 必要なモジュールを記述しています。
  */
-module ckn.yakitori {
-    requires javafx.controls;
-    requires javafx.fxml;
-    requires javafx.web;
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+open module ckn.yakitori {
+    requires transitive javafx.fxml;
+    requires transitive javafx.controls;
+    requires transitive javafx.web;
+    requires transitive org.controlsfx.controls;
+    requires transitive com.dlsc.formsfx;
+    requires transitive org.kordamp.bootstrapfx.core;
+    requires transitive eu.hansolo.tilesfx;
 
-    opens ckn.yakitori.client.controller to javafx.graphics, javafx.fxml;
-    opens ckn.yakitori.client to javafx.graphics, javafx.fxml;
-    opens ckn.yakitori to javafx.fxml;
     exports ckn.yakitori;
 }
