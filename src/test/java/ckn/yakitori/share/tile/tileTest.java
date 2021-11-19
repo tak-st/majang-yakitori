@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static ckn.yakitori.share.tile.designType.SUMIDA;
 import static ckn.yakitori.share.tile.tileType.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -236,6 +237,14 @@ class tileTest {
         })
         void StringCTest(String expected, String string) {
             assertEquals(expected, new tile(string).getFullName(true));
+        }
+
+        @Test
+        void getImageUrl() {
+            tile T = new tile("1m");
+            assertEquals("tileSet/sumida/normal/1m.png", T.getImageUrl(SUMIDA));
+            T = new tile("2mr");
+            assertEquals("tileSet/sumida/red/2m.png", T.getImageUrl(SUMIDA));
         }
 
         @ParameterizedTest

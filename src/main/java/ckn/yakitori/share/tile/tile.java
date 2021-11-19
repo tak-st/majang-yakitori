@@ -10,7 +10,7 @@ import static ckn.yakitori.share.tile.tileType.*;
  * <p>種類と数字、赤色がどうかの情報を持ち、そこから1sなどのFullName、ソート用のIDなどを取得可能です。</p>
  *
  * @author Shintani
- * @version 1.8
+ * @version 1.9
  */
 public class tile implements Serializable {
     /**
@@ -303,6 +303,16 @@ public class tile implements Serializable {
         return isRed;
     }
 
+    /**
+     * 牌のImageのUrlを取得するメソッドです。
+     *
+     * @param designType 牌デザインを指定してください。
+     * @return ImageのUrlを返します。
+     * @since 1.9
+     */
+    public String getImageUrl(designType designType) {
+        return "tileSet/" + (isRed() ? designType.getUrlRed() : designType.getUrlNormal()) + "/" + getFullName() + ".png";
+    }
 
     /**
      * toStringを使用した際に牌情報を返します。

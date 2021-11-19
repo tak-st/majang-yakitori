@@ -3,6 +3,7 @@ package ckn.yakitori.client.controller;
 import ckn.yakitori.server.mountainEntity;
 import ckn.yakitori.share.hand;
 import ckn.yakitori.share.mountain;
+import ckn.yakitori.share.tile.designType;
 import ckn.yakitori.share.tile.tile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import static ckn.yakitori.server.mountainType.YONMA;
+import static ckn.yakitori.share.tile.designType.SUMIDA;
 
 public class practiceController {
     //ガー by いたずらガチョウ
@@ -38,15 +40,15 @@ public class practiceController {
         Label1.setText(Hand.toString());
         HBox1.getChildren().clear();
         for (tile Tile : Hand.getContents()) {
-            HBox1.getChildren().add(setPaiImage("sumida", Tile));
+            HBox1.getChildren().add(setPaiImage(SUMIDA, Tile));
         }
-        HBox1.getChildren().add(setPaiImage("sumida", Hand.getPickTile()));
+        HBox1.getChildren().add(setPaiImage(SUMIDA, Hand.getPickTile()));
 
     }
 
-    private ImageView setPaiImage(String tileType, tile Tile) {
+    private ImageView setPaiImage(designType designType, tile Tile) {
         ImageView IV = new ImageView();
-        IV.setImage(new Image("tileSet/" + tileType + "/" + (Tile.isRed() ? "red" : "normal") + "/" + Tile.getFullName() + ".png"));
+        IV.setImage(new Image(Tile.getImageUrl(designType)));
         IV.setFitWidth(HBox1.getHeight() * 0.75);
         IV.setFitHeight(HBox1.getHeight());
         return IV;
