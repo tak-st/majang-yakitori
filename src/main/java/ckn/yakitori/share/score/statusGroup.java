@@ -172,6 +172,19 @@ public class statusGroup {
         return this;
     }
 
+    public ArrayList<mentsu> getKotsuKantsuBoth() {
+        ArrayList<mentsu> result = new ArrayList<>();
+        for (mentsu Mentsu : getMentsuList()) {
+            if (Mentsu instanceof kotsu) {
+                result.add(Mentsu);
+            }
+            if (Mentsu instanceof kantsu) {
+                result.add(Mentsu);
+            }
+        }
+        return result;
+    }
+
     /**
      * WaitTypeListを取得します。
      *
