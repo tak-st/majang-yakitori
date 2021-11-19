@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="497.0" prefWidth="300.0"
+            xmlns="http://javafx.com/javafx/null" fx:controller="ckn.yakitori.server.controller.serverController">
+   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="98.0" layoutY="34.0" prefHeight="17.0"
+          prefWidth="199.0" text="焼鳥サーバー" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="8.0">
+      <font>
+         <Font size="36.0"/>
+      </font>
+   </Label>
+   <Label fx:id="ipLabel" alignment="CENTER_RIGHT" layoutX="136.0" layoutY="81.0" onMouseClicked="#ipLabel_Clicked"
+          text="IP : ?" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="56.0">
+      <font>
+         <Font size="24.0"/>
+      </font>
+   </Label>
+   <TextArea fx:id="logArea" editable="false" layoutX="8.0" layoutY="108.0" prefHeight="267.0" prefWidth="284.0"
+             AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0"
+             AnchorPane.topAnchor="136.0">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </TextArea>
+   <TextField fx:id="command" layoutX="16.0" layoutY="350.0" onAction="#command_Enter" AnchorPane.bottomAnchor="8.0"
+              AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+      <font>
+         <Font size="14.0"/>
+      </font>
+   </TextField>
+   <Label fx:id="statusLabel" alignment="CENTER_RIGHT" layoutX="146.0" layoutY="91.0"
+          onMouseClicked="#ipLabel_Clicked" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="16.0"
+          AnchorPane.topAnchor="92.0">
+      <font>
+         <Font size="24.0"/>
+      </font>
+   </Label>
+</AnchorPane>

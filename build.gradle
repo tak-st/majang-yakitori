@@ -3,7 +3,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'org.ajoberstar.git-publish' version '3.0.0'
-    id 'com.palantir.git-version' version '0.12.2'
+    id 'com.palantir.git-version' version '0.12.3'
     id 'jacoco'
 }
 
@@ -27,7 +27,7 @@ gitPublish {
     // branch will be created if it doesn't exist
     branch = 'gh-pages'
     // generally, you don't need to touch this
-    repoDir = file("$buildDir/gitPublish")
+    repoDir = file("$buildDir/gitPublish") as Directory
 
     // what to publish, this is a standard CopySpec
     contents {
@@ -89,6 +89,9 @@ dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
+    testImplementation "org.testfx:testfx-core:4.0.16-alpha"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 

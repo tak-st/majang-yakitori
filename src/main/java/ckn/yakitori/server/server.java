@@ -1,4 +1,4 @@
-package ckn.yakitori.client;
+package ckn.yakitori.server;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,21 +8,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
-/**
- * クライアント用の画面を表示するためのクラスです。
- *
- * @author Shintani
- * @version 1.0
- */
-public class client extends Application {
-
-    /**
-     * アプリケーション実行時に処理されるメソッドです。
-     *
-     * @param args 起動時に渡される引数
-     */
+public class server extends Application {
     public static void main(String[] args) {
-        Application.launch(client.class);
+        Application.launch(server.class);
     }
 
     /**
@@ -33,10 +21,12 @@ public class client extends Application {
      */
     @Override
     public void start(@NotNull Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("practice.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-        stage.setTitle("本格ネット麻雀 焼鳥");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("server.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setTitle("麻雀サーバー");
         stage.setScene(scene);
         stage.show();
     }
+
+
 }

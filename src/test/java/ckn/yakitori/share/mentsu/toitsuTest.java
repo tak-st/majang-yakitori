@@ -14,13 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class toitsuTest {
 
     @Test
+    @DisplayName("Tileがもってこれるかのテスト")
     void getTile() {
         mentsu Mentsu = new toitsu(new tile(MANZU, 2, false), 0);
         assertEquals("tile{2m}", Mentsu.getTile().toString());
-    }
-
-    @Test
-    void getIdentifierTile() {
     }
 
     @ParameterizedTest
@@ -64,6 +61,7 @@ class toitsuTest {
     }
 
     @Test
+    @DisplayName("エラーが出るかのテスト")
     void errorTest() {
         Throwable exception = assertThrows(
                 IllegalArgumentException.class,
@@ -88,9 +86,16 @@ class toitsuTest {
     }
 
     @Test
+    @DisplayName("符数のテスト")
     void getFu() {
         mentsu Mentsu = new toitsu(new tile(MANZU, 5, false), 0);
         assertEquals(0, Mentsu.getFu());
     }
 
+    @Test
+    @DisplayName("toStringのテスト")
+    void toStringTest() {
+        mentsu Mentsu = new toitsu(new tile(MANZU, 5, true), 2);
+        assertEquals("対{5m*2 r2}", Mentsu.toString());
+    }
 }

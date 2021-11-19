@@ -11,27 +11,22 @@ import static ckn.yakitori.share.tile.tileType.MANZU;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class kokushiTest {
+class cyurenTest {
     @ParameterizedTest
     @CsvSource({
-            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z7z",
-            "false,0,1m9m1s9s1p9p1z2z3z4z6z6z7z7z",
-            "false,0,1m9m1s9s1p9p1z2z4z4z6z6z7z7z",
-            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z1m",
-            "false,0,1m9m1s5s1p9p1z2z3z4z5z6z7z1m",
-            "false,0,1m9m1s9s1p9p1z2z3z4z5z6z7z5m",
-            "true,0,1m9m1s9s1p9p9p1z2z3z4z5z6z7z",
-            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z9p",
-            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z9s",
-            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z7z4z",
-            "false,0,1m9m1s9s1p9p1z2z3z4z5z6z7z5m",
-            "false,0,1m9m1s9s1p9p1z2z3z4z5z6z4m5m",
-            "true,0,1m9m1s9s1p9p1z2z3z4z5z6z6z7z",
-            "true,14,1mr9mr1sr9sr1pr9pr123456zr7zr7zr",
+            "true,0,1112345678999m2m",
+            "true,3,111mr2345678999m3m",
+            "true,5,11123mr45678999m7m",
+            "false,0,1112345678999m9m",
+            "false,0,1112345678999m1m",
+            "false,0,1112223456999m8m",
+            "false,0,1112223456999m8s",
+            "false,0,1112233456789m9m",
+            "true,14,1112345678999mr6mr",
     })
-    @DisplayName("国士無双が正しくチェックできるかのテスト")
+    @DisplayName("九蓮宝燈が正しくチェックできるかのテスト")
     void check(boolean expected, int expectedred, String handString1) {
-        mentsu Mentsu = new kokushi(new hand(handString1));
+        mentsu Mentsu = new cyuren(new hand(handString1));
         assertEquals(expected, Mentsu.isCheckPass(), "チェック結果がおかしい");
         assertEquals(expectedred, Mentsu.getRedQuantity(), "赤数がおかしい");
 
@@ -39,25 +34,25 @@ class kokushiTest {
 
     @ParameterizedTest
     @CsvSource({
-            "1m,1m,9m,1p,9p,1s,9s,1z,2z,3z,4z,5z,6z,7z,1m,0",
-            "1mr,9m,9m,1p,9p,1s,9s,1z,2z,3z,4z,5z,6z,7z,9m,1",
-            "1mr,9mr,1p,1p,9p,1s,9s,1z,2z,3z,4z,5z,6z,7z,1p,2",
-            "1mr,9mr,1pr,9p,9p,1s,9s,1z,2z,3z,4z,5z,6z,7z,9p,3",
-            "1mr,9mr,1pr,9pr,1s,1s,9s,1z,2z,3z,4z,5z,6z,7z,1s,4",
-            "1mr,9mr,1pr,9pr,1sr,9s,9s,1z,2z,3z,4z,5z,6z,7z,9s,5",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1z,1z,2z,3z,4z,5z,6z,7z,1z,6",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2z,2z,3z,4z,5z,6z,7z,2z,7",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3z,3z,4z,5z,6z,7z,3z,8",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3zr,4z,4z,5z,6z,7z,4z,9",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3zr,4zr,5z,5z,6z,7z,5z,10",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3zr,4zr,5zr,6z,6z,7z,6z,11",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3zr,4zr,5zr,6zr,7z,7z,7z,12",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3zr,4zr,5zr,6zr,7zr,7z,7z,13",
-            "1mr,9mr,1pr,9pr,1sr,9sr,1zr,2zr,3zr,4zr,5zr,6zr,7zr,7zr,7zr,14",
+            "1m,1m,1m,2m,2m,3m,4m,5m,6m,7m,8m,9m,9m,9m,2m,0",
+            "1m,1m,1m,2m,3m,3m,4m,5mr,6m,7m,8m,9m,9m,9m,3m,1",
+            "1m,1m,1m,2m,3m,4mr,4m,5mr,6m,7m,8m,9m,9m,9m,4m,2",
+            "1m,1m,1m,2m,3m,4mr,5mr,5m,6mr,7m,8m,9m,9m,9m,5m,3",
+            "1m,1m,1m,2m,3mr,4mr,5mr,6mr,6m,7m,8m,9m,9m,9m,6m,4",
+            "1m,1m,1m,2m,3mr,4mr,5mr,6mr,7mr,7m,8m,9m,9m,9m,7m,5",
+            "1m,1m,1m,2mr,3mr,4mr,5mr,6mr,7mr,8m,8m,9m,9m,9m,8m,6",
+            "1m,1m,1m,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9m,9m,9m,2m,7",
+            "1mr,1m,1m,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9m,9m,9m,2m,8",
+            "1mr,1m,1m,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9mr,9m,9m,2m,9",
+            "1mr,1mr,1m,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9mr,9m,9m,2m,10",
+            "1mr,1mr,1m,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9mr,9mr,9m,2m,11",
+            "1mr,1mr,1mr,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9mr,9mr,9m,2m,12",
+            "1mr,1mr,1mr,2mr,2m,3mr,4mr,5mr,6mr,7mr,8mr,9mr,9mr,9mr,2m,13",
+            "1mr,1mr,1mr,2mr,2mr,3mr,4mr,5mr,6mr,7mr,8mr,9mr,9mr,9mr,2mr,14",
     })
     @DisplayName("牌一つから正しく判定できるかのテスト")
     void getTileFull(String ex1, String ex2, String ex3, String ex4, String ex5, String ex6, String ex7, String ex8, String ex9, String ex10, String ex11, String ex12, String ex13, String ex14, String tileString1, int Red) {
-        mentsu Mentsu = new kokushi(new tile(tileString1), Red);
+        mentsu Mentsu = new cyuren(new tile(tileString1), Red);
         tile[] tiles = Mentsu.getTileFull();
         assertEquals(ex1, tiles[0].getFullName(true));
         assertEquals(ex2, tiles[1].getFullName(true));
@@ -80,42 +75,42 @@ class kokushiTest {
     void errorTest() {
         Throwable exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new kokushi(new tile("5m"), 14));
+                () -> new cyuren(new tile("5m"), 14));
 
         assertEquals("赤ドラの数がおかしいです。", exception.getMessage());
         exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new kokushi(new tile("5m"), -1));
+                () -> new cyuren(new tile("5m"), -1));
 
         assertEquals("赤ドラの数がおかしいです。", exception.getMessage());
         exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new kokushi(new tile("5mr"), 15));
+                () -> new cyuren(new tile("5mr"), 15));
 
         assertEquals("赤ドラの数がおかしいです。", exception.getMessage());
         exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new kokushi(new tile("5mr"), 0));
+                () -> new cyuren(new tile("5mr"), 0));
 
         assertEquals("赤ドラの数がおかしいです。", exception.getMessage());
         exception = assertThrows(
                 IllegalArgumentException.class,
-                () -> new kokushi(new tile("2mr"), 2));
+                () -> new cyuren(new tile("1mr"), 2));
 
-        assertEquals("２～８の牌は識別牌になりません。", exception.getMessage());
+        assertEquals("１、９、字牌は識別牌になりません。", exception.getMessage());
     }
 
     @Test
     @DisplayName("符数のテスト")
     void getFu() {
-        mentsu Mentsu = new kokushi(new tile(MANZU, 1, false), 0);
+        mentsu Mentsu = new cyuren(new tile(MANZU, 2, false), 0);
         assertEquals(0, Mentsu.getFu());
     }
 
     @Test
     @DisplayName("toStringのテスト")
     void toStringTest() {
-        mentsu Mentsu = new kokushi(new tile(MANZU, 1, true), 14);
-        assertEquals("国士{1m*2+12牌 r14}", Mentsu.toString());
+        mentsu Mentsu = new cyuren(new tile(MANZU, 2, true), 14);
+        assertEquals("九蓮{2m*2+12牌 r14}", Mentsu.toString());
     }
 }
