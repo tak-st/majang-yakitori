@@ -8,15 +8,15 @@ import java.util.ArrayList;
  * 役判定に必要な情報をまとめるクラスです。
  *
  * @author Shintani
- * @version 1.0
+ * @version 1.1
  */
 public class statusGroup {
     /**
-     * 自風 (1234:東南西北)
+     * 自風 (1234:東・南・西・北)
      */
     int jikaze = 1;
     /**
-     * 場風 (1234:東南西北)
+     * 場風 (1234:東・南・西・北)
      */
     int bakaze = 1;
     /**
@@ -172,6 +172,12 @@ public class statusGroup {
         return this;
     }
 
+    /**
+     * 刻子と槓子両方とも同時に取得します。
+     *
+     * @return 刻子と槓子が両方含まれたArrayList
+     * @since 1.1
+     */
     public ArrayList<mentsu> getKotsuKantsuBoth() {
         ArrayList<mentsu> result = new ArrayList<>();
         for (mentsu Mentsu : getMentsuList()) {
