@@ -137,7 +137,7 @@ public class serverController {
                 logArea.appendText("終了します…" + "\n");
                 try {
                     Thread.sleep(1000);
-                    System.exit(0);
+                    Platform.exit();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
