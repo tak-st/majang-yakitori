@@ -32,7 +32,7 @@ class hakuTest {
         assertTrue(Haku.isCheckPass());
         //刻子テスト-False
         hand1 = new kotsu(false, new tile("4z"), 0);
-        kotsuList.clear();
+        kotsuList = new ArrayList<>();
         kotsuList.add(hand1);
         sg.setKotsuList(kotsuList);
         Haku = new haku(sg);
@@ -46,7 +46,7 @@ class hakuTest {
         assertTrue(Haku.isCheckPass());
         //槓子テスト-False
         hand2 = new kantsu(false, new tile("4z"), 0);
-        kantsuList.clear();
+        kantsuList = new ArrayList<>();
         kantsuList.add(hand2);
         sg.setKantsuList(kantsuList);
         Haku = new haku(sg);

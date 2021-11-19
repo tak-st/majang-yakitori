@@ -32,8 +32,15 @@ class jikazeTest {
         jikaze Jikaze = new jikaze(sg);
         assertTrue(Jikaze.isCheckPass());
         //刻子テスト-False
+        hand1 = new kotsu(false, new tile("4z"), 0);
+        kotsuList = new ArrayList<>();
+        kotsuList.add(hand1);
+        sg.setJikaze(5);
+        sg.setKotsuList(kotsuList);
+        Jikaze = new jikaze(sg);
+        assertFalse(Jikaze.isCheckPass());
         hand1 = new kotsu(false, new tile("6z"), 0);
-        kotsuList.clear();
+        kotsuList = new ArrayList<>();
         kotsuList.add(hand1);
         sg.setJikaze(5);
         sg.setKotsuList(kotsuList);
@@ -49,7 +56,14 @@ class jikazeTest {
         assertTrue(Jikaze.isCheckPass());
         //槓子テスト-False
         hand2 = new kantsu(false, new tile("4z"), 0);
-        kantsuList.clear();
+        kantsuList = new ArrayList<>();
+        kantsuList.add(hand2);
+        sg.setJikaze(2);
+        sg.setKantsuList(kantsuList);
+        Jikaze = new jikaze(sg);
+        assertFalse(Jikaze.isCheckPass());
+        hand2 = new kantsu(false, new tile("6z"), 0);
+        kantsuList = new ArrayList<>();
         kantsuList.add(hand2);
         sg.setJikaze(2);
         sg.setKantsuList(kantsuList);

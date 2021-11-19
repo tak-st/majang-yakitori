@@ -5,7 +5,6 @@ import ckn.yakitori.share.mentsu.kotsu;
 import ckn.yakitori.share.score.statusGroup;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static ckn.yakitori.share.tile.tileType.FONPAI;
 import static ckn.yakitori.share.yaku.yakuInfo.BAKAZE;
@@ -41,14 +40,14 @@ public class bakaze implements yaku {
     public boolean isCheckPass() {
         for (kotsu kot : kotsuList) {
             if (kot.getIdentifierTile().getCategory() == FONPAI) {
-                if (Objects.equals(kot.getIdentifierTile().getNumber(), bakaze)) {
+                if (kot.getIdentifierTile().getNumber() == bakaze) {
                     return true;
                 }
             }
         }
         for (kantsu kat : kantsuList) {
             if (kat.getIdentifierTile().getCategory() == FONPAI) {
-                if (Objects.equals(kat.getIdentifierTile().getNumber(), bakaze)) {
+                if (kat.getIdentifierTile().getNumber() == bakaze) {
                     return true;
                 }
             }
