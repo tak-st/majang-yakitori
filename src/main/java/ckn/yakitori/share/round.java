@@ -27,7 +27,7 @@ public class round {
     /**
      * 各ラウンド開始時に行う処理です。<br><br>
      * 三麻か四麻を判定し手配作成。<br>
-     * 作成された手配を各プレイヤーに配布。<br>
+     * (未完成)作成された手配を各プレイヤーに配布。<br>
      * 王配作成。
      *
      * @param Rule 三麻か四麻かを判定する為に使用します。
@@ -74,7 +74,8 @@ public class round {
                 default -> playerTurn;
             };
         }
-        System.out.println(playerTurn);
+        // 確認用
+        // System.out.println(playerTurn);
         return playerTurn;
     }
 }
