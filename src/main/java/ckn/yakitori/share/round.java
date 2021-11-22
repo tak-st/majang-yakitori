@@ -58,19 +58,19 @@ public class round {
      * @return 現在が誰の順目かを返します。
      */
     public int getPlayer(rule Rule) {
-        int playerTurn = 0;
+        int playerTurn;
         if (Rule.isSanma) {
             switch (turn % 3) {
                 case 0 -> playerTurn = 3;
                 case 1 -> playerTurn = 1;
-                case 2 -> playerTurn = 2;
+                default -> playerTurn = 2;
             }
         } else {
             switch (turn % 4) {
                 case 0 -> playerTurn = 4;
                 case 1 -> playerTurn = 1;
                 case 2 -> playerTurn = 2;
-                case 3 -> playerTurn = 3;
+                default -> playerTurn = 3;
             }
         }
         // 確認用
