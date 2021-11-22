@@ -66,13 +66,12 @@ public class round {
                 case 2 -> playerTurn = 2;
             }
         } else {
-            playerTurn = switch (turn % 4) {
-                case 0 -> 4;
-                case 1 -> 1;
-                case 2 -> 2;
-                case 3 -> 3;
-                default -> playerTurn;
-            };
+            switch (turn % 4) {
+                case 0 -> playerTurn = 4;
+                case 1 -> playerTurn = 1;
+                case 2 -> playerTurn = 2;
+                case 3 -> playerTurn = 3;
+            }
         }
         // 確認用
         // System.out.println(playerTurn);
