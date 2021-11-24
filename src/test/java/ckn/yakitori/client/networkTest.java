@@ -21,6 +21,13 @@ class networkTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        if (Boolean.getBoolean("headless")) {
+            System.setProperty("testfx.robot", "glass");
+            System.setProperty("testfx.headless", "true");
+            System.setProperty("prism.order", "sw");
+            System.setProperty("prism.text", "t2k");
+            System.setProperty("java.awt.headless", "true");
+        }
         final FXMLLoader loader
                 = new FXMLLoader(getClass().getClassLoader().getResource("server.fxml"));
         final Scene scene = new Scene(loader.load());
@@ -33,6 +40,7 @@ class networkTest extends ApplicationTest {
     void tearDown() {
         Platform.runLater(() -> input.setText("quit"));
         Platform.runLater(() -> input.fireEvent(new ActionEvent()));
+
     }
 
     @Test

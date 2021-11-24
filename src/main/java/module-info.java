@@ -12,6 +12,7 @@ open module ckn.yakitori {
     requires org.jetbrains.annotations;
     requires java.datatransfer;
     requires java.desktop;
+    requires org.testfx.junit5;
 
     exports ckn.yakitori;
     exports ckn.yakitori.server;

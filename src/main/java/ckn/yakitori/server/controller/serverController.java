@@ -42,10 +42,11 @@ public class serverController {
 
     @FXML
     public void initialize() {
-        logArea.appendText("""
-                焼鳥サーバー v0.1-SNAPSHOT
-                サーバーを起動しました。
-                """);
+        Platform.runLater(
+                () -> logArea.appendText("""
+                        焼鳥サーバー v0.1-SNAPSHOT
+                        サーバーを起動しました。
+                        """));
         InetAddress addr = null;
         try {
             addr = InetAddress.getLocalHost();
@@ -93,17 +94,21 @@ public class serverController {
     }
 
     private void commandProcess(String string) {
-        logArea.appendText(string + "\n");
+        Platform.runLater(
+                () -> logArea.appendText(string + "\n"));
         switch (string) {
             case "list" -> {
                 for (String s : statusList) {
                     if (!Objects.equals(s, "")) {
-                        logArea.appendText(s + "\n");
+                        Platform.runLater(
+                                () -> logArea.appendText(s + "\n"));
                     }
                 }
             }
-            case "status" -> logArea.appendText("山情報 - 残り" + Mountain.getRemaingTile() + "牌\n");
-            case "statusall" -> logArea.appendText(Mountain + "\n");
+            case "status" -> Platform.runLater(
+                    () -> logArea.appendText("山情報 - 残り" + Mountain.getRemaingTile() + "牌\n"));
+            case "statusall" -> Platform.runLater(
+                    () -> logArea.appendText(Mountain + "\n"));
             case "resume" -> {
                 if (!runflag) {
                     nextid = 1;
@@ -115,7 +120,8 @@ public class serverController {
                     chkth = new ChkThread(); //待受けもスレッドで行う
                     chkth.start();
                 } else {
-                    logArea.appendText("すでに待機中のようです。" + "\n");
+                    Platform.runLater(
+                            () -> logArea.appendText("すでに待機中のようです。" + "\n"));
                 }
             }
             case "stop" -> {
@@ -127,14 +133,16 @@ public class serverController {
                     statusList.clear();
                     SrvThreadList.clear();
                 } else {
-                    logArea.appendText("すでに停止しているようです。" + "\n");
+                    Platform.runLater(
+                            () -> logArea.appendText("すでに停止しているようです。" + "\n"));
                 }
             }
             case "quit" -> {
                 runflag = false;
                 halt();
                 chkth = null;
-                logArea.appendText("終了します…" + "\n");
+                Platform.runLater(
+                        () -> logArea.appendText("終了します…" + "\n"));
                 try {
                     Thread.sleep(1000);
                     Platform.exit();
@@ -142,7 +150,8 @@ public class serverController {
                     e.printStackTrace();
                 }
             }
-            default -> logArea.appendText("コマンドが存在しません。" + "\n");
+            default -> Platform.runLater(
+                    () -> logArea.appendText("コマンドが存在しません。" + "\n"));
         }
         command.setText("");
     }
@@ -165,7 +174,8 @@ public class serverController {
         public void run() {
             try {
                 svSocket = new ServerSocket(21000);
-                logArea.appendText("接続を待っています…" + "\n");
+                Platform.runLater(
+                        () -> logArea.appendText("接続を待っています…" + "\n"));
                 Platform.runLater(
                         () -> statusLabel.setText("接続待ち中"));
                 while (runflag) { //接続待ち受けループ
@@ -195,7 +205,8 @@ public class serverController {
             } catch (IOException e) {
                 System.out.println("ChkThread:" + e);
             }
-            logArea.appendText("接続待機を停止しました。resumeで再開できます。" + "\n");
+            Platform.runLater(
+                    () -> logArea.appendText("接続待機を停止しました。resumeで再開できます。" + "\n"));
             Platform.runLater(
                     () -> statusLabel.setText("停止中"));
         } //End of run()
@@ -255,7 +266,8 @@ public class serverController {
                         while (inpStream.available() != 0) {
                             timeoutCount = 0;
                             response = inStream.readLine();
-                            logArea.appendText("<-[" + num + "] " + response + "\n");
+                            Platform.runLater(
+                                    () -> logArea.appendText("<-[" + num + "] " + response + "\n"));
                             switch (response) {
                                 case "doPickTile" -> {
                                     if (Objects.isNull(Mountain)) {
@@ -263,7 +275,8 @@ public class serverController {
                                     }
                                     tile T = Mountain.pickTile();
                                     obOutStream.writeObject(T);
-                                    logArea.appendText("->[" + num + "] " + T + "\n");
+                                    Platform.runLater(
+                                            () -> logArea.appendText("->[" + num + "] " + T + "\n"));
                                 }
                                 case "getRemaingTile" -> {
                                     if (Objects.isNull(Mountain)) {
@@ -271,14 +284,16 @@ public class serverController {
                                     }
                                     outStream.println(Mountain.getRemaingTile());
                                     outStream.flush();
-                                    logArea.appendText("->[" + num + "] " + Mountain.getRemaingTile() + "\n");
+                                    Platform.runLater(
+                                            () -> logArea.appendText("->[" + num + "] " + Mountain.getRemaingTile() + "\n"));
                                 }
                                 case "createSequenceMountain" -> {
                                     if (Objects.isNull(Mountain)) {
                                         Mountain = new mountainEntity(SEQUENCE);
                                         outStream.println("作成しました。");
                                         outStream.flush();
-                                        logArea.appendText("山をSequenceタイプで作成しました。" + "\n");
+                                        Platform.runLater(
+                                                () -> logArea.appendText("山をSequenceタイプで作成しました。" + "\n"));
                                     } else {
                                         outStream.println("すでに山があります。" + Mountain);
                                         outStream.flush();
@@ -288,7 +303,8 @@ public class serverController {
                                     Mountain = null;
                                     outStream.println("山を初期化しました。");
                                     outStream.flush();
-                                    logArea.appendText("山を初期化しました。" + "\n");
+                                    Platform.runLater(
+                                            () -> logArea.appendText("山を初期化しました。" + "\n"));
                                 }
                                 case "alive" -> {
 
@@ -297,7 +313,8 @@ public class serverController {
                                 default -> {
                                     outStream.println(response);
                                     outStream.flush();
-                                    logArea.appendText("->[" + num + "] " + response + "\n");
+                                    Platform.runLater(
+                                            () -> logArea.appendText("->[" + num + "] " + response + "\n"));
                                 }
                             }
                         }
@@ -305,7 +322,8 @@ public class serverController {
                             statusList.set(num - 1, status);
                         }
                         if (timeoutCount >= timeoutTime * 5) {
-                            logArea.appendText("[" + num + "] 2分間通信がないため切断します。 " + "\n");
+                            Platform.runLater(
+                                    () -> logArea.appendText("[" + num + "] 2分間通信がないため切断します。 " + "\n"));
                             loopflag = false;
                         }
                         Thread.sleep(200); // CPUの負荷を軽減するためのsleep200ミリ秒
@@ -317,10 +335,12 @@ public class serverController {
                 outStream.close();
                 obOutStream.close();
                 soc.close();
-                logArea.appendText("[" + num + "] 通信スレッド停止. " + "\n");
+                Platform.runLater(
+                        () -> logArea.appendText("[" + num + "] 通信スレッド停止. " + "\n"));
                 connectCount--;
                 if (connectCount == 0) {
-                    logArea.appendText("接続者がいなくなったのでリセットします。" + "\n");
+                    Platform.runLater(
+                            () -> logArea.appendText("接続者がいなくなったのでリセットします。" + "\n"));
                     nextid = 1;
                     Platform.runLater(
                             () -> statusLabel.setText("接続待ち中"));
