@@ -31,6 +31,13 @@ public class statusGroup {
      * 鳴いてタンヤオを作ることが許されているか
      */
     boolean canKuitan = true;
+
+    /**
+     * 泣いているかどうか
+     */
+
+    boolean isOpen = false;
+
     /**
      * 天和か
      */
@@ -264,6 +271,28 @@ public class statusGroup {
      */
     public statusGroup setRiichi(boolean riichi) {
         isRiichi = riichi;
+        return this;
+    }
+
+    /**
+     * isOpenを取得します。
+     * 戻り値:isOpen
+     */
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    /**
+     * isOpenに値をセットします。
+     * パラメーター:isOpen-isOpenにセットする値
+     */
+    public statusGroup setIsopen(ArrayList<mentsu> mentsuList) {
+        for (mentsu Mentsu : mentsuList) {
+            if (Mentsu.isOpen()) {
+                this.isOpen = true;
+            }
+        }
         return this;
     }
 
