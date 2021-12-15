@@ -35,8 +35,7 @@ class tanyaoTest {
             "false, true, true, 1m , 1112333444555m2mr",
             "false, false, true, 2p, 2223334445556p6p",
             "true, true, true, 2p, 2223334445556p6p",
-            "true, true, true, 3s, 3334445556667s7s",
-            "false, true, false,  ,  1m9m1s9s1p9p1z2z3z4z6z6z7z7z"
+            "true, true, true, 3s, 3334445556667s7s"
     })
 
     @DisplayName("断么をチェック")

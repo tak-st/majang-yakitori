@@ -36,7 +36,6 @@ public class scoreCalculation {
             addHan(new bakaze(sg));
 
             addHan(new tsumo(sg));
-            addHan(new pinfu(sg));
             addHan(new tanyao(sg));
         }
     }
