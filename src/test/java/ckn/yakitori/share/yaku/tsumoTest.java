@@ -45,13 +45,10 @@ class tsumoTest {
         statusGroup sg = new statusGroup();
         mentsuPartition M = new mentsuPartition(content);
         for (int i = 0; i <= M.getMentsuList().size() - 1; i++) {
-            for (mentsu mt : M.getMentsuList(i)) {
-                mentsuList.add(mt);
-            }
+            mentsuList.addAll(M.getMentsuList(i));
         }
 
         sg.setTsumo(expectedTsumo);
-        sg.setIsopen(mentsuList);
         tsumo Tsumo = new tsumo(sg);
         assertEquals(expected, Tsumo.isCheckPass());
     }
