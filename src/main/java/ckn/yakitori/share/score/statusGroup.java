@@ -78,6 +78,21 @@ public class statusGroup {
     private WaitType WaitTypeList;
 
     /**
+     * 面子分割の結果を５種のリストに一括でセットします。
+     *
+     * @param mentsuPartition 結果をセットしたい面子分割クラス
+     * @param index           何番目の分割結果をセットするか
+     */
+    public statusGroup setMentsuList(mentsuPartition mentsuPartition, int index) {
+        setMentsuList(mentsuPartition.getMentsuList(index));
+        setKotsuList(mentsuPartition.getKotsuList(index));
+        setShuntsuList(mentsuPartition.getShuntsuList(index));
+        setToitsuList(mentsuPartition.getToitsuList(index));
+        setWaitTypeList(mentsuPartition.getWaitTypeList(index));
+        return this;
+    }
+
+    /**
      * mentsuListを取得します。
      *
      * @return mentsuList
