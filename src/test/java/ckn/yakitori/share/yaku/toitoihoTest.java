@@ -25,18 +25,18 @@ class toitoihoTest {
 
     @ParameterizedTest
     @CsvSource({
-            "true, 0, true, false,  TANKI, 1m, 111222m333s444s5p5p",
-            "true, 0 , true, false, SYANPON, 1m, 111222m333s444s5p5p",
-            "false, 0, false, false, RYANMEN, 1m, 111222m333s444p5p5p",
-            "false, 0, false, fasle, SYANPON, 1m, 123456m123456s5p5p",
-            "false, 0, false, true, TANKI, 1m, 111222m333444s5p5p",
-            "true, 0, true, false, TANKI, 1m, 111222m555666p8p8p",
-            "true, 0, false, false, TANKI, 1m, 111222m555777p7s7s"
+            "true, 0, true,  TANKI, 1m, 111222m333s444s5p5p",
+            "true, 0 , true, SYANPON, 1m, 111222m333s444s5p5p",
+            "false, 0, false, RYANMEN, 1m, 111222m333s444p5p5p",
+            "false, 0, false, SYANPON, 1m, 123456m123456s5p5p",
+            "true, 0, false, TANKI, 1m, 111222m333444s5p5p",
+            "true, 0, true, TANKI, 1m, 111222m555666p8p8p",
+            "true, 0, false, TANKI, 1m, 111222m555777p7s7s"
 
     })
 
     @DisplayName("対々和をチェック")
-    void isCheckPass(boolean expected, int expectedIndex, boolean expectedIsopen, boolean expectedtsumo, WaitType expectedWaittype, tile kanTile, String Hand) {
+    void isCheckPass(boolean expected, int expectedIndex, boolean expectedIsopen, WaitType expectedWaittype, tile kanTile, String Hand) {
 
         hand content = new hand(Hand);
 
@@ -54,7 +54,6 @@ class toitoihoTest {
         sg.setMentsuList(M.getMentsuList(expectedIndex));
         sg.setKantsuList(M.getKantsuList(expectedIndex));
         sg.setKotsuList(M.getKotsuList(expectedIndex));
-        sg.setTsumo(expectedtsumo);
         sg.setWaitTypeList(expectedWaittype);
         toitoiho Toitoiho = new toitoiho(sg);
         assertEquals(expected, Toitoiho.isCheckPass(), M.getMentsuList(0).toString());

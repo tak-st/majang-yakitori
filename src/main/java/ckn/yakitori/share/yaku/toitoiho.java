@@ -39,10 +39,6 @@ public class toitoiho implements yaku {
         }
 
 
-        if (StatusGroup.getKotsuKantsuBoth().size() == 4) {
-            //四暗刻になるのでfalse
-            return StatusGroup.isOpen() || !StatusGroup.isTsumo();
-        }
-        return false;
+        return StatusGroup.getKotsuKantsuBoth().size() == 4;
     }
 }
