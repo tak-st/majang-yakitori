@@ -28,6 +28,10 @@ public class statusGroup {
      */
     boolean isRiichi = false;
     /**
+     * 一発かどうか
+     */
+    boolean isIppatsu = false;
+    /**
      * 鳴いてタンヤオを作ることが許されているか
      */
     boolean canKuitan = true;
@@ -55,6 +59,7 @@ public class statusGroup {
      * 嶺上で上がったか
      */
     boolean isRinsyan = false;
+
     private ArrayList<mentsu> mentsuList = new ArrayList<>();
     /**
      * 刻子を保存するリスト
@@ -298,6 +303,26 @@ public class statusGroup {
      */
     public statusGroup setRiichi(boolean riichi) {
         isRiichi = riichi;
+        return this;
+    }
+
+
+    /**
+     * isRiichiを取得します。
+     *
+     * @return isIppatsu
+     */
+    public boolean isIppatsu() {
+        return isIppatsu;
+    }
+
+    /**
+     * isIppatsuに値をセットします。
+     *
+     * @param ippatsu isIppatsuにセットする値
+     */
+    public statusGroup setIppatsu(boolean ippatsu) {
+        isIppatsu = ippatsu;
         return this;
     }
 
