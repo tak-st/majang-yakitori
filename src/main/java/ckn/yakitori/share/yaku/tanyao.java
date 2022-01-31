@@ -42,11 +42,13 @@ public class tanyao implements yaku {
 
         LOOP_I:
         for (mentsu mt : mentsuList) {
+
             if (!StatusGroup.isCanKuitan() && StatusGroup.isOpen()) {
                 break;
             }
-            tile tile[] = mt.getTileFull();
-            for (tile tl : tile) {
+            tile[] Tile = mt.getTileFull();
+            for (tile tl : Tile) {
+
                 if (tl.getCategory() != MANZU && tl.getCategory() != PINZU && tl.getCategory() != SOHZU) {
                     break LOOP_I;
                 }
