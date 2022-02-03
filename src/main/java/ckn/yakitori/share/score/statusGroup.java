@@ -58,7 +58,7 @@ public class statusGroup {
     /**
      * 嶺上で上がったか
      */
-    boolean isRinsyan = false;
+    boolean isRinshan = false;
 
     private ArrayList<mentsu> mentsuList = new ArrayList<>();
     /**
@@ -455,21 +455,21 @@ public class statusGroup {
     }
 
     /**
-     * isRinsyanを取得します。
+     * isRinshanを取得します。
      *
-     * @return isRinsyan
+     * @return isRinshan
      */
-    public boolean isRinsyan() {
-        return isRinsyan;
+    public boolean isRinshan() {
+        return isRinshan;
     }
 
     /**
-     * isRinsyanに値をセットします。
+     * isRinshanに値をセットします。
      *
-     * @param rinsyan isRinsyanにセットする値
+     * @param rinshan isRinshanにセットする値
      */
-    public statusGroup setRinsyan(boolean rinsyan) {
-        isRinsyan = rinsyan;
+    public statusGroup setRinshan(boolean rinshan) {
+        isRinshan = rinshan;
         return this;
     }
 }
