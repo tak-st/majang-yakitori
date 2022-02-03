@@ -60,6 +60,11 @@ public class statusGroup {
      */
     boolean isRinsyan = false;
 
+    /**
+     * ダブル立直で上がったか
+     */
+    boolean isDoubleReach = false;
+
     private ArrayList<mentsu> mentsuList = new ArrayList<>();
     /**
      * 刻子を保存するリスト
@@ -470,6 +475,25 @@ public class statusGroup {
      */
     public statusGroup setRinsyan(boolean rinsyan) {
         isRinsyan = rinsyan;
+        return this;
+    }
+
+    /**
+     * isDoubleReachを取得します。
+     *
+     * @return isDoubleReach
+     */
+    public boolean isDoubleReach() {
+        return isDoubleReach;
+    }
+
+    /**
+     * isDoubleReachに値をセットします。
+     *
+     * @param doubleReach isDoubleReachにセットする値
+     */
+    public statusGroup setDoubleReach(boolean doubleReach) {
+        isDoubleReach = doubleReach;
         return this;
     }
 }
