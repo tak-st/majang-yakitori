@@ -1,7 +1,7 @@
 /**
  * 必要なモジュールを記述しています。
  */
-module ckn.yakitori {
+open module ckn.yakitori {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -10,9 +10,11 @@ module ckn.yakitori {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires org.jetbrains.annotations;
+    requires java.datatransfer;
+    requires java.desktop;
+    requires org.testfx.junit5;
 
-    opens ckn.yakitori.client.controller to javafx.graphics, javafx.fxml;
-    opens ckn.yakitori.client to javafx.graphics, javafx.fxml;
-    opens ckn.yakitori to javafx.fxml;
     exports ckn.yakitori;
+    exports ckn.yakitori.server;
+    exports ckn.yakitori.client;
 }

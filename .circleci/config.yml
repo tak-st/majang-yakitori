@@ -13,7 +13,7 @@ jobs:
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
       # specify the version you desire here
-      - image: cimg/openjdk:17.0.0
+      - image: cimg/openjdk:17.0.0-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -45,8 +45,6 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-
-      - run: gradle printVersion
       # run tests!
       - run: gradle test
       - store_test_results:
